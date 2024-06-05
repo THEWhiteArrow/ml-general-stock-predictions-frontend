@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Home, Root } from "./pages";
+import { Home, Root, PredictionsOverview } from "./pages";
 
 // home page
 // predictions
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Home />,
+			},
+			{
+				path: "/predictions",
+				element: <PredictionsOverview />,
 			},
 		],
 	},

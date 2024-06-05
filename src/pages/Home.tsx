@@ -8,6 +8,7 @@ function Home() {
 			<p>This is the Home page.</p>
 
 			<Link text="About" to="/about" />
+			<Link text="Predictions Overview" to="/predictions" />
 		</div>
 	);
 }

@@ -33,16 +33,28 @@ code {
 
 .neumo{
   background: var(--primary);
+
 }
 
 .neumo-out{
-  animation: fadeIn 0.3s ease;
   box-shadow: 3px 3px 6px var(--shadow),-3px -3px 6px var(--light);
+  border-radius: 5px;
 }
 
 .neumo-in{
-  animation: fadeIn 0.3s ease;
   box-shadow: inset 3px 3px 6px var(--shadow),inset -3px -3px 6px var(--light);
+  border-radius: 5px;
+}
+
+
+.neumo-interactive{
+  transition: all 0.2s ease;
+}
+.neumo-out.neumo-interactive:hover,
+.neumo-out.neumo-interactive:focus,
+.neumo-out.neumo-interactive:active
+{
+  box-shadow: 1px 1px 3px var(--shadow),-1px -1px 2px var(--light);
 }
 
 

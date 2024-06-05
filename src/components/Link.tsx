@@ -4,11 +4,12 @@ import { Link as RouterLink } from "react-router-dom";
 type LinkProps = {
 	text: string;
 	to: string;
+	className?: string;
 };
 function Link(props: LinkProps) {
-	const { text, to } = props;
+	const { text, to, className } = props;
 	return (
-		<RouterLink className="neumo neumo-out p-5" to={to}>
+		<RouterLink className={`neumo neumo-out ${className}`} to={to}>
 			{text}
 		</RouterLink>
 	);
