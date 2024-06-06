@@ -2,28 +2,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Home, Root, PredictionsOverview } from "./pages";
-
-// home page
-// predictions
-// predicitons/:stock_id
-// contact
-// about project
+import { HomePage, PredictionsPage } from "./pages";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Root />,
-		children: [
-			{
-				path: "/",
-				element: <Home />,
-			},
-			{
-				path: "/predictions",
-				element: <PredictionsOverview />,
-			},
-		],
+		element: <HomePage />,
+	},
+	{
+		path: "/predictions",
+		element: <PredictionsPage />,
 	},
 ]);
 

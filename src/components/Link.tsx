@@ -1,4 +1,3 @@
-import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 type LinkProps = {
@@ -9,7 +8,10 @@ type LinkProps = {
 function Link(props: LinkProps) {
 	const { text, to, className } = props;
 	return (
-		<RouterLink className={`neumo neumo-out ${className}`} to={to}>
+		<RouterLink
+			className={`neumo neumo-out neumo-interactive ${className}`}
+			to={to}
+		>
 			{text}
 		</RouterLink>
 	);

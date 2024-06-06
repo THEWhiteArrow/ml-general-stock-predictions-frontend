@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "../components/Link";
 
-function Home() {
+function HomePage() {
 	return (
 		<div className="container mx-auto flex flex-col">
-			<h1 className="neumo-out">Home</h1>
+			<h1 className="neumo-out">HomePage</h1>
 			<p>This is the Home page.</p>
 
 			<Link text="About" to="/about" />
@@ -13,4 +13,4 @@ function Home() {
 	);
 }
 
-export default Home;
+export default HomePage;

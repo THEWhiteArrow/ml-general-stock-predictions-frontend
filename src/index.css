@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --primary: #e6e7ee;
+  --shadow: #b8b9be;
+  --light: #fff;
+  --shadow-horizontal: 3px;
+  --shadow-vertical: 3px;
+  --shadow-blur: 6px;
+  --shadow-spread: 0px;
+  
+  --shadow-horizontal-sm: 1px;
+  --shadow-vertical-sm: 1px;
+  --shadow-blur-sm: 3px;
+  --shadow-spread-sm: 0px;
+  
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -13,22 +34,27 @@ body {
 
 html{
   min-height: 100vh;
-  height: 100%;
 }
 
-body, #root{
-  height: 100%;
+html, body, #root {
+  display: flex;
+  flex: 1;
 }
 
+
+/* html{
+  background-color: aquamarine;
+}
+body{
+  background-color: lightcoral;
+}
+#root{
+  background-color: plum;
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-:root{
-  --primary: #e6e7ee;
-  --shadow: #b8b9be;
-  --light: #fff;
 }
 
 .neumo{
@@ -37,15 +63,25 @@ code {
 }
 
 .neumo-out{
-  box-shadow: 3px 3px 6px var(--shadow),-3px -3px 6px var(--light);
+  box-shadow: 
+    var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
+    calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: 5px;
 }
-
 .neumo-in{
-  box-shadow: inset 3px 3px 6px var(--shadow),inset -3px -3px 6px var(--light);
+  box-shadow: 
+    inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
+    inset calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
+  border-radius: 5px;
+}
+.neumo-in-sm{
+  box-shadow: 
+    inset var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
+    inset calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
   border-radius: 5px;
 }
 
+ 
 
 .neumo-interactive{
   transition: all 0.2s ease;
@@ -56,5 +92,4 @@ code {
 {
   box-shadow: 1px 1px 3px var(--shadow),-1px -1px 2px var(--light);
 }
-
-
+    

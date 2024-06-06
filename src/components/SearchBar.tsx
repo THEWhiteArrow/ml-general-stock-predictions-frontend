@@ -2,14 +2,18 @@ import React from "react";
 
 type SearchBarProps = {
 	className?: string;
+	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	value: string;
 };
 
 function SearchBar(props: SearchBarProps) {
-	const { className } = props;
+	const { className, value, handleChange } = props;
 	return (
 		<div className={`flex w-full mx-auto font-[sans-serif] ${className}`}>
 			<input
 				type="text"
+				onChange={handleChange}
+				value={value}
 				placeholder="Stock name, company or symbol"
 				className="w-full outline-none text-sm px-4 py-3 neumo neumo-in"
 			/>

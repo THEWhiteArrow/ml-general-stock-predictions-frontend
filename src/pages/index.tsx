@@ -1,5 +1,4 @@
-import Home from "./Home";
-import Root from "./Root";
-import PredictionsOverview from "./PredictionsOverview";
+import HomePage from "./HomePage";
+import PredictionsPage from "./PredictionsPage";
 
-export { Home, Root, PredictionsOverview };
+export { HomePage, PredictionsPage };
