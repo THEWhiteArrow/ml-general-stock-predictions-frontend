@@ -5,7 +5,7 @@ type LinkProps = {
 	to: string;
 	className?: string;
 };
-function Link(props: LinkProps) {
+function CustomLink(props: LinkProps) {
 	const { text, to, className } = props;
 	return (
 		<RouterLink
@@ -17,4 +17,4 @@ function Link(props: LinkProps) {
 	);
 }
 
-export default Link;
+export default CustomLink;

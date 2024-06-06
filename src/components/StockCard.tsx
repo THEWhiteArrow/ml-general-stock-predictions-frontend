@@ -9,10 +9,10 @@ import {
 	Tooltip,
 	Legend,
 } from "recharts";
-import Link from "./Link";
+import { Link } from "react-router-dom";
 import CustomizedToolTip from "./CustomizedToolTip";
 import { DataType } from "../services/DataService";
-
+import { ReactComponent as BoxArrowInUpRightSvg } from "../assets/box-arrow-in-up-right.svg";
 type StockOverviewProps = {
 	className?: string;
 	name: string;
@@ -24,21 +24,22 @@ function StockOverview(props: StockOverviewProps) {
 	const { className, name, symbol, data } = props;
 
 	return (
-		<div className={`flex ${className} p-2`}>
-			<div className="neumo neumo-out w-full h-full flex flex-col items-center p-4">
-				<div className="flex-grow flex w-full items-center justify-between">
-					<h3 className="p-2">
+		<div className={`flex ${className} p-6`}>
+			<div className="neumo neumo-out w-full h-full flex flex-col items-center">
+				<div className="neumo-out py-4 px-4 flex-grow flex w-full items-center justify-between">
+					<h3>
 						{name} | {symbol}
 					</h3>
 					<Link
-						text="Details"
-						to={`/predictions/${symbol}`}
-						className="text-center  p-2"
-					/>
+						to="/details"
+						className="neumo neumo-out neumo-interactive p-2"
+					>
+						<BoxArrowInUpRightSvg />
+					</Link>
 				</div>
 
 				<ResponsiveContainer
-					className="neumo neumo-out mt-5 pt-2        "
+					className="my-2 pr-4"
 					height={250}
 					width={"100%"}
 				>

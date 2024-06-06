@@ -5,12 +5,17 @@ import Spinner from "../components/Spinner";
 import { getStocksData, StockData, DataType } from "../services/DataService";
 
 function PredictionsOverview() {
+	const getToday = () => {
+		const date = new Date();
+		date.setHours(0, 0, 0, 0);
+		return date;
+	};
 	const [loading, setLoading] = React.useState(true);
 	const [stocksData, setStocksData] = React.useState<StockData[] | null>(
 		null
 	);
 	const [searchQuery, setSearchQuery] = React.useState("");
-
+	const [predictionDate, setPredictionDate] = React.useState(getToday());
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchQuery(e.target.value);
 	};
@@ -22,6 +27,16 @@ function PredictionsOverview() {
 			name.toLowerCase().includes(query) ||
 			symbol.toLowerCase().includes(query)
 		);
+	};
+
+	const handleMoveDate = (days: number) => {
+		const newDate = new Date(predictionDate);
+		newDate.setDate(newDate.getDate() + days);
+
+		if (newDate > new Date()) {
+			return;
+		}
+		setPredictionDate(newDate);
 	};
 
 	useEffect(() => {
@@ -36,7 +51,7 @@ function PredictionsOverview() {
 	return (
 		<main className="neumo flex-grow">
 			<div className="container mx-auto py-6 flex flex-col h-full">
-				<h1 className="neumo-out text-3xl mb-6 p-5">
+				<h1 className="neumo-out text-3xl mb-16 p-5">
 					Predictions Overview
 				</h1>
 				<SearchBar
@@ -44,7 +59,29 @@ function PredictionsOverview() {
 					value={searchQuery}
 					handleChange={handleChange}
 				/>
-				<p className="neumo-out p-5 mb-6">
+				<div className="flex flex-row justify-between items-center my-2">
+					<button
+						className="neumo-out neumo-interactive p-2"
+						onClick={() => handleMoveDate(-1)}
+					>
+						Previous
+					</button>
+					<p className="neumo-out p-4">
+						{predictionDate.toLocaleString("default", {
+							day: "numeric",
+							month: "long",
+							year: "numeric",
+						})}
+					</p>
+					<button
+						className="neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed"
+						disabled={predictionDate >= getToday()}
+						onClick={() => handleMoveDate(1)}
+					>
+						Next
+					</button>
+				</div>
+				<p className="mb-6">
 					Here you can see all the stocks and predicitons overview
 				</p>
 				<div className="mb-6 flex flex-1 flex-wrap items-center justify-evenly">
