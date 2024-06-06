@@ -27,7 +27,7 @@ function StockOverview(props: StockOverviewProps) {
 		<div className={`flex ${className} p-2`}>
 			<div className="neumo neumo-out w-full h-full flex flex-col items-center p-4">
 				<div className="flex-grow flex w-full items-center justify-between">
-					<h3 className="neumo-in-sm p-2">
+					<h3 className="p-2">
 						{name} | {symbol}
 					</h3>
 					<Link

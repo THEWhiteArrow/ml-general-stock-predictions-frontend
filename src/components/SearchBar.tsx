@@ -15,7 +15,7 @@ function SearchBar(props: SearchBarProps) {
 				onChange={handleChange}
 				value={value}
 				placeholder="Stock name, company or symbol"
-				className="w-full outline-none text-sm px-4 py-3 neumo neumo-in"
+				className="w-full outline-none text-sm px-4 py-3 neumo neumo-in-sm"
 			/>
 			<button
 				type="button"

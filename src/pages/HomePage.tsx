@@ -1,15 +1,12 @@
 import React from "react";
 import Link from "../components/Link";
+import HeroSection from "../components/HeroSection";
 
 function HomePage() {
 	return (
-		<div className="container mx-auto flex flex-col">
-			<h1 className="neumo-out">HomePage</h1>
-			<p>This is the Home page.</p>
-
-			<Link text="About" to="/about" />
-			<Link text="Predictions Overview" to="/predictions" />
-		</div>
+		<main className="neumo flex-grow">
+			<HeroSection />
+		</main>
 	);
 }
 
