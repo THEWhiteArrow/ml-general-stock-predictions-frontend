@@ -14,6 +14,7 @@ function PredictionsOverview() {
 	const [predictionDate, setPredictionDate] = React.useState(
 		getNthPreviousWorkingDate(0, getToday())
 	);
+	const [displayOffset, setDisplayOffset] = React.useState(10);
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchQuery(e.target.value);
 	};
@@ -35,6 +36,25 @@ function PredictionsOverview() {
 		};
 		fetchData();
 	}, [predictionDate]);
+
+	const buttonLoadHandler = (
+		<div className="flex flex-row gap-4 justify-center items-center my-2">
+			<button
+				className="neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed"
+				disabled={displayOffset <= 10}
+				onClick={() => setDisplayOffset(displayOffset - 10)}
+			>
+				Load less
+			</button>
+			<button
+				className="neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed"
+				disabled={!stocksData || displayOffset >= stocksData.length}
+				onClick={() => setDisplayOffset(displayOffset + 10)}
+			>
+				Load more
+			</button>
+		</div>
+	);
 
 	return (
 		<main className="neumo flex-grow">
@@ -85,6 +105,7 @@ function PredictionsOverview() {
 					{!loading &&
 						stocksData &&
 						stocksData
+							.slice(0, displayOffset)
 							.filter(isQueryRelevant)
 							.map((stock) => (
 								<StockCard
@@ -96,6 +117,8 @@ function PredictionsOverview() {
 								/>
 							))}
 				</div>
+
+				{!loading && stocksData && buttonLoadHandler}
 			</div>
 		</main>
 	);
