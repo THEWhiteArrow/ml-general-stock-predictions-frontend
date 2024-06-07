@@ -1,3 +1,5 @@
+import { MongoClient } from "mongodb";
+
 type DataType = {
 	date: string;
 	history?: number;
@@ -299,7 +301,21 @@ const stocksDataMock: StockData[] = [
 	},
 ];
 
+const connectToMongo = async (): Promise<MongoClient> => {
+	const {
+		REACT_APP_DB_USER,
+		REACT_APP_DB_PASSWORD,
+		REACT_APP_CLUSTER_NAME,
+		REACT_APP_DB_NAME,
+	} = process.env;
+	const uri = `mongodb+srv://${REACT_APP_DB_USER}:${REACT_APP_DB_PASSWORD}@${REACT_APP_CLUSTER_NAME}.m7l3ilv.mongodb.net/${REACT_APP_DB_NAME}?retryWrites=true&w=majority`;
+	const client = new MongoClient(uri);
+	await client.connect();
+	return client;
+};
+
 const getStocksData = async (): Promise<StockData[]> => {
+	const client = await connectToMongo();
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(stocksDataMock);

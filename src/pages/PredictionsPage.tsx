@@ -2,14 +2,10 @@ import React, { useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import StockCard from "../components/StockCard";
 import Spinner from "../components/Spinner";
-import { getStocksData, StockData, DataType } from "../services/DataService";
+import { getStocksData, StockData } from "../services/DataService";
+import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
 
 function PredictionsOverview() {
-	const getToday = () => {
-		const date = new Date();
-		date.setHours(0, 0, 0, 0);
-		return date;
-	};
 	const [loading, setLoading] = React.useState(true);
 	const [stocksData, setStocksData] = React.useState<StockData[] | null>(
 		null
@@ -27,16 +23,6 @@ function PredictionsOverview() {
 			name.toLowerCase().includes(query) ||
 			symbol.toLowerCase().includes(query)
 		);
-	};
-
-	const handleMoveDate = (days: number) => {
-		const newDate = new Date(predictionDate);
-		newDate.setDate(newDate.getDate() + days);
-
-		if (newDate > new Date()) {
-			return;
-		}
-		setPredictionDate(newDate);
 	};
 
 	useEffect(() => {
@@ -62,7 +48,11 @@ function PredictionsOverview() {
 				<div className="flex flex-row justify-between items-center my-2">
 					<button
 						className="neumo-out neumo-interactive p-2"
-						onClick={() => handleMoveDate(-1)}
+						onClick={() =>
+							setPredictionDate(
+								getNthPreviousWorkingDate(1, predictionDate)
+							)
+						}
 					>
 						Previous
 					</button>
@@ -76,7 +66,11 @@ function PredictionsOverview() {
 					<button
 						className="neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed"
 						disabled={predictionDate >= getToday()}
-						onClick={() => handleMoveDate(1)}
+						onClick={() =>
+							setPredictionDate(
+								getNthPreviousWorkingDate(-1, predictionDate)
+							)
+						}
 					>
 						Next
 					</button>
