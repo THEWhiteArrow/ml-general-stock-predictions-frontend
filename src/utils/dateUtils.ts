@@ -10,10 +10,8 @@ const getNthPreviousWorkingDate = (days: number, date: Date): Date => {
 		days += addedDays;
 		newDate = new Date(newDate.setDate(newDate.getDate() + addedDays));
 	}
-	console.log(days);
 	days += 2 * Math.floor(days / 5);
 
-	console.log(days);
 	newDate = new Date(newDate.setDate(newDate.getDate() - days));
 
 	if (newDate > new Date()) {

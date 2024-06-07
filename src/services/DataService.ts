@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+// import { MongoClient } from "mongodb";
 
 type DataType = {
 	date: string;
@@ -301,21 +301,103 @@ const stocksDataMock: StockData[] = [
 	},
 ];
 
-const connectToMongo = async (): Promise<MongoClient> => {
+// const connectToMongo = async (): Promise<MongoClient> => {
+// 	const {
+// 		REACT_APP_DB_USER,
+// 		REACT_APP_DB_PASSWORD,
+// 		REACT_APP_CLUSTER_NAME,
+// 		REACT_APP_DB_NAME,
+// 	} = process.env;
+// 	const uri = `mongodb+srv://${REACT_APP_DB_USER}:${REACT_APP_DB_PASSWORD}@${REACT_APP_CLUSTER_NAME}.m7l3ilv.mongodb.net/${REACT_APP_DB_NAME}?retryWrites=true&w=majority`;
+// 	const client = new MongoClient(uri);
+// 	await client.connect();
+// 	return client;
+// };
+
+const getAllStocks = async () => {
 	const {
-		REACT_APP_DB_USER,
-		REACT_APP_DB_PASSWORD,
 		REACT_APP_CLUSTER_NAME,
 		REACT_APP_DB_NAME,
+		REACT_APP_API_KEY,
+		REACT_APP_ENV,
 	} = process.env;
-	const uri = `mongodb+srv://${REACT_APP_DB_USER}:${REACT_APP_DB_PASSWORD}@${REACT_APP_CLUSTER_NAME}.m7l3ilv.mongodb.net/${REACT_APP_DB_NAME}?retryWrites=true&w=majority`;
-	const client = new MongoClient(uri);
-	await client.connect();
-	return client;
+
+	const proxy =
+		REACT_APP_ENV === "dev" ? "https://cors-anywhere.herokuapp.com/" : "";
+	const url = `${proxy}https://eu-central-1.aws.data.mongodb-api.com/app/data-udefxog/endpoint/data/v1/action/find`;
+	const data = {
+		collection: "stocks-v2",
+		database: REACT_APP_DB_NAME || "",
+		dataSource: REACT_APP_CLUSTER_NAME || "",
+	};
+
+	const headers = {
+		"Content-Type": "application/json",
+		"Access-Control-Request-Headers": "*",
+		"Acess-Control-Allow-Origin": "localhost:3000",
+		"api-key": REACT_APP_API_KEY || "",
+	};
+
+	const response = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify(data),
+		// mode: "no-cors",
+		headers: headers,
+	});
+
+	return response.json();
 };
 
-const getStocksData = async (): Promise<StockData[]> => {
-	const client = await connectToMongo();
+const getGenerationByDate = async (date: Date) => {
+	const {
+		REACT_APP_CLUSTER_NAME,
+		REACT_APP_DB_NAME,
+		REACT_APP_API_KEY,
+		REACT_APP_ENV,
+	} = process.env;
+
+	const proxy =
+		REACT_APP_ENV === "dev" ? "https://cors-anywhere.herokuapp.com/" : "";
+	const url = `${proxy}https://eu-central-1.aws.data.mongodb-api.com/app/data-udefxog/endpoint/data/v1/action/findOne`;
+	const data = {
+		collection: "generations-v2",
+		database: REACT_APP_DB_NAME || "",
+		dataSource: REACT_APP_CLUSTER_NAME || "",
+		filter: {
+			// date: {
+			// 	$gte: new Date(date.toISOString()), // Match documents where 'date' is greater than or equal to the specified date
+			// 	$lt: new Date(
+			// 		date.getTime() + 24 * 60 * 60 * 1000
+			// 	).toISOString(), // Match documents where 'date' is less than the next day
+			// },
+		},
+	};
+
+	const headers = {
+		"Content-Type": "application/json",
+		"Access-Control-Request-Headers": "*",
+		"api-key": REACT_APP_API_KEY || "",
+	};
+
+	const response = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify(data),
+		headers: headers,
+	});
+
+	return response.json();
+};
+
+const getPredictionsByIds = async (predictionIds: string[]) => {};
+
+const getStocksData = async (date: Date): Promise<StockData[]> => {
+	// const client = await connectToMongo();
+	// const stocks = await getAllStocks();
+	// console.log(stocks);
+	// const generation = await getGenerationByDate(date);
+	// console.log(generation);
+	// const predictions = await getPredictionsByIds(generation.predictions);
+
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(stocksDataMock);

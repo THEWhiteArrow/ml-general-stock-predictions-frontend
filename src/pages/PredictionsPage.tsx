@@ -11,7 +11,9 @@ function PredictionsOverview() {
 		null
 	);
 	const [searchQuery, setSearchQuery] = React.useState("");
-	const [predictionDate, setPredictionDate] = React.useState(getToday());
+	const [predictionDate, setPredictionDate] = React.useState(
+		getNthPreviousWorkingDate(0, getToday())
+	);
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchQuery(e.target.value);
 	};
@@ -27,12 +29,12 @@ function PredictionsOverview() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const data = await getStocksData();
+			const data = await getStocksData(predictionDate);
 			setStocksData(data);
 			setLoading(false);
 		};
 		fetchData();
-	}, []);
+	}, [predictionDate]);
 
 	return (
 		<main className="neumo flex-grow">
