@@ -1,16 +1,16 @@
+import { makeMongoReqest } from "../utils/mongo";
+
 exports.handler = async (event, context) => {
 	const {
 		REACT_APP_CLUSTER_NAME,
 		REACT_APP_DB_NAME,
 		REACT_APP_API_KEY,
 		REACT_APP_API_URL,
-		REACT_APP_STOCKS_COLLECTION,
 		REACT_APP_GENERATION_COLLECTION,
-		REACT_APP_HISTORY_COLLECTION,
 		REACT_APP_PREDICTION_COLLECTION,
 	} = process.env;
 
-	const { date } = event.queryStringParameters;
+	const { date, stockId } = event.queryStringParameters;
 
 	if (!date) {
 		return {
@@ -59,60 +59,17 @@ exports.handler = async (event, context) => {
 		};
 	}
 
-	const stocks = await makeMongoReqest(
-		REACT_APP_STOCKS_COLLECTION,
-		REACT_APP_DB_NAME,
-		REACT_APP_CLUSTER_NAME,
-		REACT_APP_API_URL,
-		"action/find",
-		REACT_APP_API_KEY
-	);
+	let predictions = prediction.documents;
+
+	if (stockId) predictions = predictions.filter((el) => el.stock === stockId);
 
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
-			date: date,
-			gen2: generation,
-			stocks: stocks.documents,
 			generation: {
 				...generation.document,
-				predictions: prediction.documents,
+				predictions: predictions,
 			},
 		}),
 	};
-};
-
-const makeMongoReqest = async (
-	collection: string = "",
-	database: string = "",
-	cluster: string = "",
-	base_url: string = "",
-	endpoint: string,
-	apiKey: string = "",
-	filter: object = {},
-	bson: boolean = false
-) => {
-	const url = `${base_url}/${endpoint}`;
-
-	const data = {
-		collection: collection,
-		database: database,
-		dataSource: cluster,
-		filter: filter,
-	};
-
-	const headers = {
-		"Content-Type": "application/json",
-		Accept: bson ? "application/ejson" : "application/json",
-		"Access-Control-Request-Headers": "*",
-		"api-key": apiKey,
-	};
-
-	const response = await fetch(url, {
-		method: "POST",
-		body: JSON.stringify(data),
-		headers: headers,
-	});
-
-	return response.json();
 };
