@@ -7,6 +7,7 @@ import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
 
 function PredictionsOverview() {
 	const [loading, setLoading] = React.useState(true);
+	const [failedState, setFailedState] = React.useState<string | null>(null);
 	const [stocksData, setStocksData] = React.useState<StockData[] | null>(
 		null
 	);
@@ -21,18 +22,26 @@ function PredictionsOverview() {
 
 	const isQueryRelevant = (stock: StockData) => {
 		const query = searchQuery.toLowerCase();
-		const { name, symbol } = stock;
+		const { name, symbol, area } = stock;
 		return (
 			name.toLowerCase().includes(query) ||
-			symbol.toLowerCase().includes(query)
+			symbol.toLowerCase().includes(query) ||
+			area.toLowerCase().includes(query)
 		);
 	};
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const data = await getStocksData(predictionDate);
-			setStocksData(data);
-			setLoading(false);
+			setLoading(true);
+			try {
+				const data = await getStocksData(predictionDate);
+				setStocksData(data);
+				setFailedState(null);
+			} catch (error: any) {
+				setFailedState(error.message);
+			} finally {
+				setLoading(false);
+			}
 		};
 		fetchData();
 	}, [predictionDate]);
@@ -102,7 +111,9 @@ function PredictionsOverview() {
 				</p>
 				<div className="mb-6 flex flex-1 flex-wrap items-center justify-evenly">
 					{loading && <Spinner />}
+					{!loading && failedState && <p>{failedState}</p>}
 					{!loading &&
+						!failedState &&
 						stocksData &&
 						stocksData
 							.slice(0, displayOffset)
@@ -118,7 +129,7 @@ function PredictionsOverview() {
 							))}
 				</div>
 
-				{!loading && stocksData && buttonLoadHandler}
+				{!loading && stocksData && !failedState && buttonLoadHandler}
 			</div>
 		</main>
 	);

@@ -6,6 +6,7 @@ type DataType = {
 type StockData = {
 	name: string;
 	symbol: string;
+	area: string;
 	data: DataType[];
 };
 
@@ -67,6 +68,7 @@ const getStocksData = async (date: Date): Promise<StockData[]> => {
 		const stockData: StockData = {
 			name: stock.company,
 			symbol: stock.symbol,
+			area: stock.area,
 			data: [],
 		};
 
