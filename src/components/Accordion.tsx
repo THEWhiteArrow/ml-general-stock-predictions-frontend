@@ -8,12 +8,21 @@ function Accordion(props: AccordionProps) {
 	const { title, className, children } = props;
 
 	const [isOpen, setIsOpen] = useState(false);
-
+	const accordionId = `accordion-${title.replace(/\s+/g, "-").toLowerCase()}`;
 	return (
 		<div className={`${className}`}>
 			<button
+				id={accordionId}
+				aria-controls={`${accordionId}-content`}
+				aria-expanded={isOpen}
 				className="flex flex-row justify-between items-center w-full px-2"
 				onClick={() => setIsOpen(!isOpen)}
+				onKeyDown={(e) => {
+					if (e.key === "Enter" || e.key === " ") {
+						e.preventDefault();
+						setIsOpen(!isOpen);
+					}
+				}}
 			>
 				<h4>{title}</h4>
 				<div>
@@ -46,6 +55,9 @@ function Accordion(props: AccordionProps) {
 			</button>
 
 			<div
+				id={`${accordionId}-content`}
+				role="region"
+				aria-labelledby={accordionId}
 				className={`grid overflow-hidden transition-all duration-300 ease-in-out ${
 					isOpen
 						? "grid-rows-[1fr] opacity-100"
