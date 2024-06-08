@@ -62,9 +62,11 @@ function PredictionsOverview() {
 			try {
 				const generationResponse = await getGeneration(predictionDate);
 				setGeneration(generationResponse.generation);
-				setFailedState(null);
+				console.log(generationResponse.generation);
+				// setFailedState(null);
 			} catch (e: any) {
-				setFailedState(e.message);
+				setGeneration(null);
+				// setFailedState(e.message);
 			} finally {
 				setLoading(false);
 			}
@@ -90,18 +92,18 @@ function PredictionsOverview() {
 					area={stock.area}
 					className="w-full sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-4/12"
 					data={[
-						...histories
-							.filter((el: History) => el.stock === stock._id)
-							.map((el: History) => ({
-								date: new Date(el.date),
-								history: el.close,
-							})),
 						...(generation?.predictions
 							.filter((el: Prediction) => el.stock === stock._id)
 							?.map((el: Prediction) => ({
 								date: new Date(el.date),
 								prediction: el.close,
 							})) || []),
+						...histories
+							.filter((el: History) => el.stock === stock._id)
+							.map((el: History) => ({
+								date: new Date(el.date),
+								history: el.close,
+							})),
 					]}
 				/>
 			));

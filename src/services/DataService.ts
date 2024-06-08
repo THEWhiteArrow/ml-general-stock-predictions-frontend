@@ -67,9 +67,7 @@ const getAllStocks = async (): Promise<StocksResponse> => {
 
 const getGeneration = async (date: Date): Promise<GenerationResponse> => {
 	const query = {
-		date: `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(
-			-2
-		)}-${("0" + date.getDate()).slice(-2)}`,
+		date: date.toISOString().slice(0, 10),
 	};
 
 	const url = `/api/generations?${new URLSearchParams(query)}`;
