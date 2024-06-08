@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { HomePage, NotFoundPage, PredictionsPage } from "./pages";
+import { HomePage, NotFoundPage, PredictionsPage, StocksPage } from "./pages";
 
 const router = createBrowserRouter([
 	{
@@ -12,6 +12,10 @@ const router = createBrowserRouter([
 	{
 		path: "/predictions",
 		element: <PredictionsPage />,
+	},
+	{
+		path: "/stocks",
+		element: <StocksPage />,
 	},
 	{
 		path: "*",

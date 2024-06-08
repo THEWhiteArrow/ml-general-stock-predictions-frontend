@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
-import SearchBar from "../components/SearchBar";
-import StockCard, { DataType, StockCardProps } from "../components/StockCard";
+import SearchStockBar, { isQueryRelevant } from "../components/SearchStockBar";
+import StockGraphCard, {
+	DataType,
+	StockCardProps,
+} from "../components/StockGraphCard";
 import Spinner from "../components/Spinner";
 import {
 	getAllStocks,
@@ -14,16 +17,6 @@ import {
 import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
 import LoaderHandler from "../components/LoaderHandler";
 import DatePicker from "../components/DatePicker";
-
-function isQueryRelevant(stock: Stock, searchQuery: string) {
-	const query = searchQuery.toLowerCase();
-	const { company, symbol, area } = stock;
-	return (
-		company.toLowerCase().includes(query) ||
-		symbol.toLowerCase().includes(query) ||
-		area.toLowerCase().includes(query)
-	);
-}
 
 function PredictionsOverview() {
 	const [loading, setLoading] = React.useState(true);
@@ -75,17 +68,21 @@ function PredictionsOverview() {
 	}, [predictionDate]);
 
 	let content = null;
-
+	let relevantCnt = 0;
 	if (loading) {
 		content = <Spinner />;
 	} else if (failedState) {
 		content = <p>{failedState}</p>;
 	} else if (stocks.length && (histories.length || generation)) {
-		content = stocks
-			.filter((el: Stock) => isQueryRelevant(el, searchQuery))
+		const relevantStocks = stocks.filter((el: Stock) =>
+			isQueryRelevant(el, searchQuery)
+		);
+		relevantCnt = relevantStocks.length;
+		content = relevantStocks
+			.sort((a: Stock, b: Stock) => a.company.localeCompare(b.company))
 			.slice(0, displayLimit)
 			.map((stock: Stock) => (
-				<StockCard
+				<StockGraphCard
 					key={stock.symbol}
 					company={stock.company}
 					symbol={stock.symbol}
@@ -107,6 +104,14 @@ function PredictionsOverview() {
 					]}
 				/>
 			));
+
+		if (content.length === 0) {
+			content = (
+				<p className="my-auto">
+					No stocks that would meet the query were found.
+				</p>
+			);
+		}
 	}
 
 	return (
@@ -115,7 +120,7 @@ function PredictionsOverview() {
 				<h1 className="neumo-out text-3xl mb-16 p-5">
 					Predictions Overview
 				</h1>
-				<SearchBar
+				<SearchStockBar
 					className="mb-6"
 					value={searchQuery}
 					handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,8 +139,13 @@ function PredictionsOverview() {
 
 				{!loading && !failedState && stocks.length && !failedState && (
 					<LoaderHandler
-						disableLessBtn={stocks.length <= 10}
-						disableMoreBtn={stocks.length <= displayLimit}
+						disableLessBtn={
+							displayLimit <= 10 || displayLimit >= relevantCnt
+						}
+						disableMoreBtn={
+							displayLimit >= stocks.length ||
+							displayLimit >= relevantCnt
+						}
 						handleLess={() => setDisplayLimit(displayLimit - 10)}
 						handleMore={() => setDisplayLimit(displayLimit + 10)}
 					/>

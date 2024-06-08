@@ -1,11 +1,16 @@
 import React from "react";
 
-function Spinner() {
+type SpinnerProps = {
+	className?: string;
+};
+
+function Spinner(props: SpinnerProps) {
+	const { className } = props;
 	return (
 		<div
 			aria-label="Loading..."
 			role="status"
-			className="flex items-center space-x-2"
+			className={`${className} flex items-center space-x-2`}
 		>
 			<svg
 				className="h-20 w-20 animate-spin stroke-gray-500"

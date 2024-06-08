@@ -6,6 +6,7 @@ import CustomLink from "./CustomLink";
 const navigation = [
 	{ name: "Home", href: "/" },
 	{ name: "Why", href: "/#why" },
+	{ name: "Stocks", href: "/stocks" },
 	{ name: "Predictions", href: "/predictions" },
 	{ name: "Contact", href: "/contact" },
 ];
@@ -98,9 +99,14 @@ export default function Example() {
 						</p>
 						<div className="mt-10 flex items-center justify-center gap-x-6">
 							<CustomLink
+								to="/stocks"
+								text="← See all stocks"
+								className="p-2 w-40"
+							/>
+							<CustomLink
 								to="/predictions"
 								text="See predictions →"
-								className="p-2"
+								className="p-2 w-40"
 							/>
 						</div>
 					</div>

@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import CustomizedToolTip from "./CustomizedToolTip";
 import { ReactComponent as BoxArrowInUpRightSvg } from "../assets/box-arrow-in-up-right.svg";
+import { ReactComponent as EyeSvg } from "../assets/eye.svg";
 
 type DataType = {
 	date: Date;
@@ -27,7 +28,7 @@ type StockCardProps = {
 	data: DataType[];
 };
 
-function StockCard(props: StockCardProps) {
+function StockGraphCard(props: StockCardProps) {
 	const { className, company, area, symbol, data } = props;
 
 	const transformedData: DataType[] = [];
@@ -60,10 +61,12 @@ function StockCard(props: StockCardProps) {
 						{company} | {symbol}
 					</h3>
 					<Link
-						to="/details"
-						className="neumo neumo-out neumo-interactive p-2"
+						to={`stocks/${symbol}`}
+						className="neumo neumo-out neumo-interactive p-2 flex flex-row items-center gap-2"
 					>
-						<BoxArrowInUpRightSvg />
+						Details
+						<EyeSvg />
+						{/* <BoxArrowInUpRightSvg /> */}
 					</Link>
 				</div>
 
@@ -123,5 +126,5 @@ function StockCard(props: StockCardProps) {
 	);
 }
 
-export default StockCard;
+export default StockGraphCard;
 export type { DataType, StockCardProps };

@@ -4,15 +4,16 @@ type LinkProps = {
 	text: string;
 	to: string;
 	className?: string;
+	c2a?: boolean;
 };
 function CustomLink(props: LinkProps) {
-	const { text, to, className } = props;
+	const { text, to, className, c2a } = props;
 	return (
 		<RouterLink
 			className={`neumo neumo-out neumo-interactive ${className}`}
 			to={to}
 		>
-			{text}
+			{c2a ? text.toLocaleUpperCase() : text}
 		</RouterLink>
 	);
 }

@@ -3,6 +3,7 @@ type Stock = {
 	area: string;
 	company: string;
 	symbol: string;
+	description: string;
 };
 
 type StocksResponse = {
@@ -47,7 +48,13 @@ type GenerationResponse = {
 	generation: Generation;
 };
 
-const getAllStocks = async (): Promise<StocksResponse> => {
+type GetAllStocksConfig = {
+	description?: boolean;
+};
+
+const getAllStocks = async (
+	config: GetAllStocksConfig = { description: false }
+): Promise<StocksResponse> => {
 	const url = "/api/stocks";
 
 	const response = await fetch(url, {
@@ -60,6 +67,44 @@ const getAllStocks = async (): Promise<StocksResponse> => {
 
 	if (!response.ok) {
 		throw new Error(data.error);
+	}
+
+	data.stocks = data.stocks.map((stock: Stock) => ({
+		...stock,
+		description: "No description fetched.",
+	}));
+
+	if (config.description) {
+		const companies = data.stocks.map((stock: Stock) => stock.company);
+		const descriptionPromises = companies.map((company: string) =>
+			fetch(
+				`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+					company
+				)}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			)
+		);
+		const responses = await Promise.all(descriptionPromises);
+
+		const descriptions = await Promise.all(
+			responses.map(async (response, index) => {
+				if (!response.ok) {
+					return "Failed to fetch the description.";
+				}
+				const data = await response.json();
+				return data.extract;
+			})
+		);
+
+		data.stocks = data.stocks.map((stock: Stock, index: number) => ({
+			...stock,
+			description: descriptions[index],
+		}));
 	}
 
 	return data;
