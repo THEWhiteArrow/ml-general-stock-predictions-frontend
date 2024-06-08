@@ -64,7 +64,7 @@ function StockGraphCard(props: StockCardProps) {
 						to={`stocks/${symbol}`}
 						className="neumo neumo-out neumo-interactive p-2 flex flex-row items-center gap-2"
 					>
-						Details
+						View more
 						<EyeSvg />
 						{/* <BoxArrowInUpRightSvg /> */}
 					</Link>

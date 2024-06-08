@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import SearchStockBar, { isQueryRelevant } from "../components/SearchStockBar";
-import StockGraphCard, {
-	DataType,
-	StockCardProps,
-} from "../components/StockGraphCard";
+import StockGraphCard from "../components/StockGraphCard";
 import Spinner from "../components/Spinner";
 import {
 	getAllStocks,
@@ -87,7 +84,7 @@ function PredictionsOverview() {
 					company={stock.company}
 					symbol={stock.symbol}
 					area={stock.area}
-					className="w-full sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-4/12"
+					className="w-full sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-4/12 flex-grow"
 					data={[
 						...(generation?.predictions
 							.filter((el: Prediction) => el.stock === stock._id)
