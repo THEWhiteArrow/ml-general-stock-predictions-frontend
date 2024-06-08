@@ -1,4 +1,4 @@
-import { makeMongoReqest } from "../utils/mongo";
+import { makeMongoRequest } from "../utils/mongo";
 
 exports.handler = async (event, context) => {
 	const {
@@ -9,7 +9,7 @@ exports.handler = async (event, context) => {
 		REACT_APP_STOCKS_COLLECTION,
 	} = process.env;
 
-	const stocks = await makeMongoReqest(
+	const stocks = await makeMongoRequest(
 		REACT_APP_STOCKS_COLLECTION,
 		REACT_APP_DB_NAME,
 		REACT_APP_CLUSTER_NAME,

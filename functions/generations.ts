@@ -1,4 +1,4 @@
-import { makeMongoReqest } from "../utils/mongo";
+import { makeMongoRequest } from "../utils/mongo";
 
 exports.handler = async (event, context) => {
 	const {
@@ -21,7 +21,9 @@ exports.handler = async (event, context) => {
 		};
 	}
 
-	const generation = await makeMongoReqest(
+	const predictionDate = new Date(date);
+
+	const generation = await makeMongoRequest(
 		REACT_APP_GENERATION_COLLECTION,
 		REACT_APP_DB_NAME,
 		REACT_APP_CLUSTER_NAME,
@@ -29,7 +31,11 @@ exports.handler = async (event, context) => {
 		"action/findOne",
 		REACT_APP_API_KEY,
 		{
-			run_date: date,
+			date: {
+				$eq: {
+					$date: predictionDate,
+				},
+			},
 		}
 	);
 
@@ -38,15 +44,25 @@ exports.handler = async (event, context) => {
 			$oid: el,
 		})) || [];
 
-	const prediction = await makeMongoReqest(
+	const filter = {
+		_id: { $in: predictionIds },
+		stock: stockId ? { $eq: { $oid: stockId } } : { $exists: true },
+	};
+
+	const prediction = await makeMongoRequest(
 		REACT_APP_PREDICTION_COLLECTION,
 		REACT_APP_DB_NAME,
 		REACT_APP_CLUSTER_NAME,
 		REACT_APP_API_URL,
 		"action/find",
 		REACT_APP_API_KEY,
+		filter,
+		false,
 		{
-			_id: { $in: predictionIds },
+			limit: 50000,
+			sort: {
+				date: 1,
+			},
 		}
 	);
 
@@ -54,21 +70,19 @@ exports.handler = async (event, context) => {
 		return {
 			statusCode: 404,
 			body: JSON.stringify({
+				predictionDate,
 				error: "No data found for requested generation date",
 			}),
 		};
 	}
 
-	let predictions = prediction.documents;
-
-	if (stockId) predictions = predictions.filter((el) => el.stock === stockId);
-
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
+			predictionDate: predictionDate,
 			generation: {
 				...generation.document,
-				predictions: predictions,
+				predictions: prediction.documents || [],
 			},
 		}),
 	};

@@ -8,12 +8,13 @@ type CustomizedToolTipProps = {
 
 function CustomizedToolTip(props: CustomizedToolTipProps) {
 	const { active, payload, label } = props;
+
 	if (active && payload && payload.length) {
 		return (
 			<div className="neumo neumo-out p-2 text-xs opacity-50">
 				<p>{payload[0].name}</p>
 				<p>
-					{label} : {payload[0].value}
+					{label.toISOString().slice(0, 10)}: {payload[0].value}
 				</p>
 			</div>
 		);

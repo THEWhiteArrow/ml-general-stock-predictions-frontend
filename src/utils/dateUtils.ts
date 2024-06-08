@@ -21,7 +21,7 @@ const getNthPreviousWorkingDate = (days: number, date: Date): Date => {
 };
 const getToday = () => {
 	const date = new Date();
-	date.setHours(0, 0, 0, 0);
+	date.setUTCHours(0, 0, 0, 0);
 	return date;
 };
 export { getNthPreviousWorkingDate, getToday };

@@ -1,69 +1,111 @@
 import React, { useEffect } from "react";
 import SearchBar from "../components/SearchBar";
-import StockCard from "../components/StockCard";
+import StockCard, { DataType, StockCardProps } from "../components/StockCard";
 import Spinner from "../components/Spinner";
-import { getStocksData, StockData } from "../services/DataService";
+import {
+	getAllStocks,
+	getGeneration,
+	getHistory,
+	History,
+	Stock,
+	Generation,
+	Prediction,
+} from "../services/DataService";
 import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
+import LoaderHandler from "../components/LoaderHandler";
+import DatePicker from "../components/DatePicker";
+
+function isQueryRelevant(stock: Stock, searchQuery: string) {
+	const query = searchQuery.toLowerCase();
+	const { company, symbol, area } = stock;
+	return (
+		company.toLowerCase().includes(query) ||
+		symbol.toLowerCase().includes(query) ||
+		area.toLowerCase().includes(query)
+	);
+}
 
 function PredictionsOverview() {
 	const [loading, setLoading] = React.useState(true);
 	const [failedState, setFailedState] = React.useState<string | null>(null);
-	const [stocksData, setStocksData] = React.useState<StockData[] | null>(
-		null
-	);
 	const [searchQuery, setSearchQuery] = React.useState("");
 	const [predictionDate, setPredictionDate] = React.useState(
 		getNthPreviousWorkingDate(0, getToday())
 	);
-	const [displayOffset, setDisplayOffset] = React.useState(10);
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchQuery(e.target.value);
-	};
-
-	const isQueryRelevant = (stock: StockData) => {
-		const query = searchQuery.toLowerCase();
-		const { name, symbol, area } = stock;
-		return (
-			name.toLowerCase().includes(query) ||
-			symbol.toLowerCase().includes(query) ||
-			area.toLowerCase().includes(query)
-		);
-	};
+	const [displayLimit, setDisplayLimit] = React.useState(10);
+	const [histories, setHistories] = React.useState<History[]>([]);
+	const [stocks, setStocks] = React.useState<Stock[]>([]);
+	const [generation, setGeneration] = React.useState<Generation | null>(null);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			setLoading(true);
+		const fetchStocks = async () => {
+			const stocksResponse = await getAllStocks();
+			setStocks(stocksResponse.stocks);
+		};
+		const fetchHistories = async () => {
+			const historyResponse = await getHistory(
+				getNthPreviousWorkingDate(150, getToday())
+			);
+			setHistories(historyResponse.histories);
+		};
+		fetchStocks();
+		fetchHistories();
+	}, []);
+
+	useEffect(() => {
+		setLoading(false);
+	}, [histories, generation]);
+
+	useEffect(() => {
+		setLoading(true);
+		const fetchPredictions = async () => {
 			try {
-				const data = await getStocksData(predictionDate);
-				setStocksData(data);
+				const generationResponse = await getGeneration(predictionDate);
+				setGeneration(generationResponse.generation);
 				setFailedState(null);
-			} catch (error: any) {
-				setFailedState(error.message);
+			} catch (e: any) {
+				setFailedState(e.message);
 			} finally {
 				setLoading(false);
 			}
 		};
-		fetchData();
+		fetchPredictions();
 	}, [predictionDate]);
 
-	const buttonLoadHandler = (
-		<div className="flex flex-row gap-4 justify-center items-center my-2">
-			<button
-				className="neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed"
-				disabled={displayOffset <= 10}
-				onClick={() => setDisplayOffset(displayOffset - 10)}
-			>
-				Load less
-			</button>
-			<button
-				className="neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed"
-				disabled={!stocksData || displayOffset >= stocksData.length}
-				onClick={() => setDisplayOffset(displayOffset + 10)}
-			>
-				Load more
-			</button>
-		</div>
-	);
+	let content = null;
+
+	if (loading) {
+		content = <Spinner />;
+	} else if (failedState) {
+		content = <p>{failedState}</p>;
+	} else if (stocks.length && (histories.length || generation)) {
+		content = stocks
+			.filter((el: Stock) => isQueryRelevant(el, searchQuery))
+			.slice(0, displayLimit)
+			.map((stock: Stock) => (
+				<StockCard
+					key={stock.symbol}
+					company={stock.company}
+					symbol={stock.symbol}
+					area={stock.area}
+					className="w-full sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-4/12"
+					data={[
+						...histories
+							.filter((el: History) => el.stock === stock._id)
+							.map((el: History) => ({
+								date: new Date(el.date),
+								history: el.close,
+							})),
+						...(generation?.predictions
+							.filter((el: Prediction) => el.stock === stock._id)
+							?.map((el: Prediction) => ({
+								date: new Date(el.date),
+								prediction: el.close,
+							})) || []),
+					]}
+				/>
+			));
+	}
 
 	return (
 		<main className="neumo flex-grow">
@@ -74,62 +116,28 @@ function PredictionsOverview() {
 				<SearchBar
 					className="mb-6"
 					value={searchQuery}
-					handleChange={handleChange}
+					handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+						setSearchQuery(e.target.value);
+					}}
 				/>
-				<div className="flex flex-row justify-between items-center my-2">
-					<button
-						className="neumo-out neumo-interactive p-2"
-						onClick={() =>
-							setPredictionDate(
-								getNthPreviousWorkingDate(1, predictionDate)
-							)
-						}
-					>
-						Previous
-					</button>
-					<p className="neumo-out p-4">
-						{predictionDate.toLocaleString("default", {
-							day: "numeric",
-							month: "long",
-							year: "numeric",
-						})}
-					</p>
-					<button
-						className="neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed"
-						disabled={predictionDate >= getToday()}
-						onClick={() =>
-							setPredictionDate(
-								getNthPreviousWorkingDate(-1, predictionDate)
-							)
-						}
-					>
-						Next
-					</button>
-				</div>
+
+				<DatePicker date={predictionDate} setDate={setPredictionDate} />
+
 				<p className="mb-6">
 					Here you can see all the stocks and predicitons overview
 				</p>
 				<div className="mb-6 flex flex-1 flex-wrap items-center justify-evenly">
-					{loading && <Spinner />}
-					{!loading && failedState && <p>{failedState}</p>}
-					{!loading &&
-						!failedState &&
-						stocksData &&
-						stocksData
-							.slice(0, displayOffset)
-							.filter(isQueryRelevant)
-							.map((stock) => (
-								<StockCard
-									key={stock.symbol}
-									name={stock.name}
-									symbol={stock.symbol}
-									data={stock.data}
-									className="w-full sm:w-6/12 md:w-6/12 lg:w-4/12 xl:w-3/12"
-								/>
-							))}
+					{content}
 				</div>
 
-				{!loading && stocksData && !failedState && buttonLoadHandler}
+				{!loading && !failedState && stocks.length && !failedState && (
+					<LoaderHandler
+						disableLessBtn={stocks.length <= 10}
+						disableMoreBtn={stocks.length <= displayLimit}
+						handleLess={() => setDisplayLimit(displayLimit - 10)}
+						handleMore={() => setDisplayLimit(displayLimit + 10)}
+					/>
+				)}
 			</div>
 		</main>
 	);

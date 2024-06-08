@@ -1,4 +1,4 @@
-const makeMongoReqest = async (
+const makeMongoRequest = async (
 	collection: string = "",
 	database: string = "",
 	cluster: string = "",
@@ -6,7 +6,8 @@ const makeMongoReqest = async (
 	endpoint: string,
 	apiKey: string = "",
 	filter: object = {},
-	bson: boolean = false
+	bson: boolean = false,
+	config: object = {}
 ) => {
 	const url = `${base_url}/${endpoint}`;
 
@@ -15,6 +16,7 @@ const makeMongoReqest = async (
 		database: database,
 		dataSource: cluster,
 		filter: filter,
+		...config,
 	};
 
 	const headers = {
@@ -33,4 +35,4 @@ const makeMongoReqest = async (
 	return response.json();
 };
 
-export { makeMongoReqest };
+export { makeMongoRequest };
