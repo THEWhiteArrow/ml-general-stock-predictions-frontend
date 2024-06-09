@@ -1,5 +1,5 @@
 import React from "react";
-import { getAllStocks, Stock } from "../services/DataService";
+import { getStocks, Stock } from "../services/DataService";
 import Spinner from "../components/Spinner";
 import StockInfoCard from "../components/StockInfoCard";
 import CustomLink from "../components/CustomLink";
@@ -11,7 +11,7 @@ function StocksPage() {
 
 	React.useEffect(() => {
 		const fetchStocks = async () => {
-			const stocksResponse = await getAllStocks({ description: true });
+			const stocksResponse = await getStocks({ description: true });
 			setStocks(stocksResponse.stocks);
 			setLoading(false);
 		};

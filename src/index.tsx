@@ -2,7 +2,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { HomePage, NotFoundPage, PredictionsPage, StocksPage } from "./pages";
+import {
+	HomePage,
+	NotFoundPage,
+	PredictionsPage,
+	StockDetailPage,
+	StocksPage,
+} from "./pages";
 
 const router = createBrowserRouter([
 	{
@@ -16,6 +22,10 @@ const router = createBrowserRouter([
 	{
 		path: "/stocks",
 		element: <StocksPage />,
+	},
+	{
+		path: "/stocks/:symbol",
+		element: <StockDetailPage />,
 	},
 	{
 		path: "*",

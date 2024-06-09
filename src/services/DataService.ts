@@ -48,14 +48,25 @@ type GenerationResponse = {
 	generation: Generation;
 };
 
-type GetAllStocksConfig = {
+type getStocksConfig = {
 	description?: boolean;
+	symbol?: string;
+	stockId?: string;
 };
 
-const getAllStocks = async (
-	config: GetAllStocksConfig = { description: false }
+type getHistoryConfig = {
+	end?: Date;
+	stockId?: string;
+};
+
+const getStocks = async (
+	config: getStocksConfig = {}
 ): Promise<StocksResponse> => {
-	const url = "/api/stocks";
+	const query = {
+		symbol: config.symbol || "",
+		stockId: config.stockId || "",
+	};
+	const url = `/api/stocks?${new URLSearchParams(query)}`;
 
 	const response = await fetch(url, {
 		method: "GET",
@@ -134,9 +145,10 @@ const getGeneration = async (date: Date): Promise<GenerationResponse> => {
 
 const getHistory = async (
 	start: Date,
-	end?: Date,
-	stockId?: string
+	config: getHistoryConfig = {}
 ): Promise<HistoryResponse> => {
+	const { stockId, end } = config;
+
 	const query = {
 		start: start.toISOString(),
 		end: end?.toISOString() ?? "",
@@ -159,7 +171,7 @@ const getHistory = async (
 	return data;
 };
 
-export { getAllStocks, getGeneration, getHistory };
+export { getStocks, getGeneration, getHistory };
 export type {
 	Stock,
 	StocksResponse,

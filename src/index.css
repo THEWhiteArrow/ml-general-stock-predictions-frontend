@@ -17,6 +17,8 @@
   --shadow-spread-sm: 0px;
   
   --neumo-rounded: 5px;
+
+  --neumo-text-error: #ec7b7b;
 }
 
 * {
@@ -72,6 +74,10 @@ code {
 
 .neumo-bg-light{
   background-color: var(--light);
+}
+
+.neumo-text-error{
+  color: var(--neumo-text-error);
 }
 
 .neumo-out{

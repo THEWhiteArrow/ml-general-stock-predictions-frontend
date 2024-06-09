@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import SearchStockBar, { isQueryRelevant } from "../components/SearchStockBar";
-import StockGraphCard from "../components/StockGraphCard";
+import StockPredictionCard from "../components/StockPredictionCard";
 import Spinner from "../components/Spinner";
 import {
-	getAllStocks,
+	getStocks,
 	getGeneration,
 	getHistory,
 	History,
@@ -29,7 +29,7 @@ function PredictionsOverview() {
 
 	useEffect(() => {
 		const fetchStocks = async () => {
-			const stocksResponse = await getAllStocks();
+			const stocksResponse = await getStocks();
 			setStocks(stocksResponse.stocks);
 		};
 		const fetchHistories = async () => {
@@ -79,7 +79,7 @@ function PredictionsOverview() {
 			.sort((a: Stock, b: Stock) => a.company.localeCompare(b.company))
 			.slice(0, displayLimit)
 			.map((stock: Stock) => (
-				<StockGraphCard
+				<StockPredictionCard
 					key={stock.symbol}
 					company={stock.company}
 					symbol={stock.symbol}

@@ -1,5 +1,3 @@
-import React from "react";
-
 type CustomizedToolTipProps = {
 	active?: boolean;
 	payload?: any;
@@ -18,11 +16,11 @@ function CustomizedToolTip(props: CustomizedToolTipProps) {
 						)[0].color,
 					}}
 				>
-					{label.toISOString().slice(0, 10)}:&nbsp;
+					{label.toISOString().slice(0, 10)}
 				</p>
 				{payload.map((el: any) => (
 					<p key={el.name} style={{ color: el.color }}>
-						{el.name}: {el.value}
+						{el.name}: {Math.floor(el.value * 100) / 100} USD
 					</p>
 				))}
 			</div>
