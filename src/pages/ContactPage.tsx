@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-import { ReactComponent as LinkedinSvg } from "../assets/linkedin.svg";
-import { ReactComponent as GithubSvg } from "../assets/github.svg";
-import { ReactComponent as GoogleSvg } from "../assets/google.svg";
+import { ReactComponent as LinkedinSvg } from "../assets/svgs/linkedin.svg";
+import { ReactComponent as GithubSvg } from "../assets/svgs/github.svg";
+import { ReactComponent as GoogleSvg } from "../assets/svgs/google.svg";
 
 function ContactPage() {
 	return (

@@ -19,7 +19,6 @@ import Footer from "../components/Footer";
 
 function PredictionsOverview() {
 	const [loading, setLoading] = React.useState(true);
-	const [failedState, setFailedState] = React.useState<string | null>(null);
 	const [searchQuery, setSearchQuery] = React.useState("");
 	const [predictionDate, setPredictionDate] = React.useState(
 		getNthPreviousWorkingDate(0, getToday())
@@ -55,10 +54,8 @@ function PredictionsOverview() {
 				const generationResponse = await getGeneration(predictionDate);
 				setGeneration(generationResponse.generation);
 				console.log(generationResponse.generation);
-				// setFailedState(null);
 			} catch (e: any) {
 				setGeneration(null);
-				// setFailedState(e.message);
 			} finally {
 				setLoading(false);
 			}
@@ -70,8 +67,6 @@ function PredictionsOverview() {
 	let relevantCnt = 0;
 	if (loading) {
 		content = <Spinner />;
-	} else if (failedState) {
-		content = <p>{failedState}</p>;
 	} else if (stocks.length && (histories.length || generation)) {
 		const relevantStocks = stocks.filter((el: Stock) =>
 			isQueryRelevant(el, searchQuery)
@@ -201,7 +196,7 @@ function PredictionsOverview() {
 					{content}
 				</div>
 
-				{!loading && !failedState && stocks.length && !failedState && (
+				{!loading && stocks.length && (
 					<LoaderHandler
 						disableLessBtn={
 							displayLimit <= 10 || displayLimit >= relevantCnt

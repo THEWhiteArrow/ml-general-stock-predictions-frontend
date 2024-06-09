@@ -11,7 +11,7 @@ type StockDetailProps = {
 };
 
 function StockDetail(props: StockDetailProps) {
-	const { symbol, company, description, area, histories } = props;
+	const { symbol, company, description, histories } = props;
 
 	const min =
 		Math.floor(

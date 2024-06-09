@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import { Stock, History, getHistory, getStocks } from "../services/DataService";
-import { error } from "console";
 import StockDetail from "../components/StockDetail";
 import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
 import Footer from "../components/Footer";

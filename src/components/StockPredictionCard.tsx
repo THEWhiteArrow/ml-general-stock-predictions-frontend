@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ReactComponent as EyeSvg } from "../assets/eye.svg";
+import { ReactComponent as EyeSvg } from "../assets/svgs/eye.svg";
 import Graph, { DataType } from "./Graph";
 
 type StockPredictionCardProps = {
@@ -11,7 +11,7 @@ type StockPredictionCardProps = {
 };
 
 function StockPredictionCard(props: StockPredictionCardProps) {
-	const { className, company, area, symbol, data } = props;
+	const { className, company, symbol, data } = props;
 
 	return (
 		<div className={`flex ${className} p-6`}>

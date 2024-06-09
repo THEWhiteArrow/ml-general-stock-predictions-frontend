@@ -1,5 +1,4 @@
 import CustomLink from "../components/CustomLink";
-// import AboutSection from "../components/AboutSection";
 
 function HomePage() {
 	return (

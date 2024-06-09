@@ -1,6 +1,6 @@
 import React from "react";
 import { Stock } from "../services/DataService";
-import { ReactComponent as MagnifyingGlassSvg } from "../assets/magnifying-glass.svg";
+import { ReactComponent as MagnifyingGlassSvg } from "../assets/svgs/magnifying-glass.svg";
 
 type SearchBarProps = {
 	className?: string;
