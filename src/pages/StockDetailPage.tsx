@@ -5,6 +5,7 @@ import { Stock, History, getHistory, getStocks } from "../services/DataService";
 import { error } from "console";
 import StockDetail from "../components/StockDetail";
 import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
+import Footer from "../components/Footer";
 
 function StockDetailPage() {
 	const { symbol } = useParams<{ symbol: string }>();
@@ -47,7 +48,7 @@ function StockDetailPage() {
 	}, [stock]);
 
 	return (
-		<main className="neumo flex-grow">
+		<>
 			<div className="container mx-auto py-6 flex flex-col h-full">
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stock {symbol}</h1>
 				<div className="mb-6 flex flex-col items-center flex-grow">
@@ -62,7 +63,8 @@ function StockDetailPage() {
 					)}
 				</div>
 			</div>
-		</main>
+			<Footer />
+		</>
 	);
 }
 

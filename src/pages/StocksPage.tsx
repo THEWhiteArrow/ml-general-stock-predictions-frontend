@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import StockInfoCard from "../components/StockInfoCard";
 import CustomLink from "../components/CustomLink";
 import SearchStockBar, { isQueryRelevant } from "../components/SearchStockBar";
+import Footer from "../components/Footer";
 function StocksPage() {
 	const [loading, setLoading] = React.useState(true);
 	const [stocks, setStocks] = React.useState<Stock[]>([]);
@@ -66,20 +67,23 @@ function StocksPage() {
 		);
 
 	return (
-		<div className="container mx-auto py-6 flex flex-col h-full">
-			<h1 className="neumo-out text-3xl mb-16 p-5">Stocks</h1>
-			<SearchStockBar
-				className="mb-6"
-				value={searchQuery}
-				handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-					setSearchQuery(e.target.value);
-				}}
-			/>
-			{introduction}
-			<div className="my-8 flex flex-1 flex-col justify-start items-center">
-				{content}
+		<>
+			<div className="container mx-auto py-6 flex flex-col h-full">
+				<h1 className="neumo-out text-3xl mb-16 p-5">Stocks</h1>
+				<SearchStockBar
+					className="mb-6"
+					value={searchQuery}
+					handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+						setSearchQuery(e.target.value);
+					}}
+				/>
+				{introduction}
+				<div className="my-8 flex flex-1 flex-col justify-start items-center">
+					{content}
+				</div>
 			</div>
-		</div>
+			<Footer />
+		</>
 	);
 }
 

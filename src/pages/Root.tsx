@@ -7,7 +7,7 @@ export class Root extends Component {
 		return (
 			<main className="neumo flex flex-grow">
 				<Navbar />
-				<div className="mt-[72px] flex flex-grow">
+				<div className="mt-[72px] flex flex-grow flex-col">
 					<Outlet />
 				</div>
 			</main>

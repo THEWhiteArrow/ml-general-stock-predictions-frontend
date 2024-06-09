@@ -87,6 +87,12 @@ code {
   calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: var(--neumo-rounded);
 }
+.neumo-out-sm{
+  box-shadow: 
+  var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
+  calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
+  border-radius: var(--neumo-rounded);
+}
 .neumo-in{
   box-shadow: 
   inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 

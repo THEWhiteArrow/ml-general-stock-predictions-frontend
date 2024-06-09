@@ -15,6 +15,7 @@ import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
 import LoaderHandler from "../components/LoaderHandler";
 import DatePicker from "../components/DatePicker";
 import Accordion from "../components/Accordion";
+import Footer from "../components/Footer";
 
 function PredictionsOverview() {
 	const [loading, setLoading] = React.useState(true);
@@ -172,7 +173,7 @@ function PredictionsOverview() {
 	}
 
 	return (
-		<main className="neumo flex-grow">
+		<>
 			<div className="container mx-auto py-6 flex flex-col h-full">
 				<h1 className="neumo-out text-3xl mb-16 p-5">
 					Predictions Overview
@@ -214,7 +215,8 @@ function PredictionsOverview() {
 					/>
 				)}
 			</div>
-		</main>
+			<Footer />
+		</>
 	);
 }
 
