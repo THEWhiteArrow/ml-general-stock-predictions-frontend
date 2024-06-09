@@ -31,9 +31,8 @@ function StockInfoCard(props: StockInfoCardProps) {
 						<div className="flex flex-row justify-end">
 							<CustomLink
 								to={`/stocks/${symbol}`}
-								text="More →"
+								text="Details →"
 								className="p-4 mt-1"
-								c2a
 							/>
 						</div>
 					</div>

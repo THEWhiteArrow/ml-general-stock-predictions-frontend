@@ -36,7 +36,7 @@ function StockDetail(props: StockDetailProps) {
 		) / 100;
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col flex-grow">
 			<h2 className="text-2xl font-bold">
 				{company} ({symbol})
 			</h2>
@@ -68,19 +68,17 @@ function StockDetail(props: StockDetailProps) {
 				</div>
 			</div>
 
-			<div className="my-4 flex flex-row items-center justify-between">
+			<div className="my-4 flex flex-grow flex-col md:flex-row justify-center items-end gap-4">
 				<CustomLink
 					to={`/stocks`}
 					text="← Back to Stocks"
-					className="p-4 md:w-64 text-center"
-					c2a
+					className="my-2 p-4 w-full md:w-64 text-center"
 				/>
 
 				<CustomLink
 					to={`https://finance.yahoo.com/quote/${symbol}/`}
 					text="Visit Yahoo Finance →"
-					className="p-4 md:w-64 text-center"
-					c2a
+					className="my-2 p-4 w-full md:w-64 text-center"
 				/>
 			</div>
 		</div>

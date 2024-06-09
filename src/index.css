@@ -80,26 +80,41 @@ code {
   color: var(--neumo-text-error);
 }
 
+
 .neumo-out{
   box-shadow: 
-    var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
-    calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
+  var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
+  calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: var(--neumo-rounded);
 }
 .neumo-in{
   box-shadow: 
-    inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
-    inset calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
+  inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
+  inset calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: var(--neumo-rounded);
 }
 .neumo-in-sm{
   box-shadow: 
-    inset var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
-    inset calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
+  inset var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
+  inset calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
   border-radius: var(--neumo-rounded);
 }
+.rounded-none{
+  border-radius: 0px;
+}
 
- 
+a.highlight-underline::after{
+  content: '';
+  display: block;
+  width:0; 
+  height: 2px;
+  transition: all 0.3s ease;
+  background-color: var(--neumo-text-error);
+}
+a.highlight-underline:hover::after,
+a.highlight-underline.active::after{
+  width: 100%;
+}
 
 .neumo-interactive{
   transition: all 0.1s ease;

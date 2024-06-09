@@ -8,28 +8,36 @@ import {
 	PredictionsPage,
 	StockDetailPage,
 	StocksPage,
+	Root,
 } from "./pages";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <HomePage />,
-	},
-	{
-		path: "/predictions",
-		element: <PredictionsPage />,
-	},
-	{
-		path: "/stocks",
-		element: <StocksPage />,
-	},
-	{
-		path: "/stocks/:symbol",
-		element: <StockDetailPage />,
-	},
-	{
-		path: "*",
-		element: <NotFoundPage />,
+		element: <Root />,
+		children: [
+			{
+				path: "/",
+				element: <HomePage />,
+			},
+			{
+				path: "/predictions",
+				element: <PredictionsPage />,
+			},
+
+			{
+				path: "/stocks",
+				element: <StocksPage />,
+			},
+			{
+				path: "/stocks/:symbol",
+				element: <StockDetailPage />,
+			},
+			{
+				path: "*",
+				element: <NotFoundPage />,
+			},
+		],
 	},
 ]);
 

@@ -22,7 +22,7 @@ function StockPredictionCard(props: StockPredictionCardProps) {
 						to={`/stocks/${symbol}`}
 						className="neumo neumo-out neumo-interactive p-2 flex flex-row items-center gap-2"
 					>
-						More
+						View
 						<EyeSvg />
 					</Link>
 				</div>

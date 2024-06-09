@@ -1,13 +1,42 @@
-import React from "react";
-import HeroSection from "../components/HeroSection";
+import CustomLink from "../components/CustomLink";
 // import AboutSection from "../components/AboutSection";
 
 function HomePage() {
 	return (
-		<main className="neumo flex-grow">
-			<HeroSection />
-			{/* <AboutSection /> */}
-		</main>
+		<section className="flex flex-grow justify-center items-center">
+			<div className="relative isolate px-6 pt-14 lg:px-8">
+				<div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+					<div className="hidden sm:mb-8 sm:flex sm:justify-center">
+						<div className="">
+							Made with{" "}
+							<span className="neumo-text-error">♥</span> by
+							Damian Trafiałek
+						</div>
+					</div>
+					<div className="text-center">
+						<h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+							General Stock Predictions
+						</h1>
+						<p className="mt-6 text-lg leading-8 text-gray-600">
+							The platform that will help you invest in the stock
+							markets thanks to the power of AI.
+						</p>
+						<div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-x-6">
+							<CustomLink
+								to="/stocks"
+								text="← See all stocks"
+								className="p-2 w-40 my-2"
+							/>
+							<CustomLink
+								to="/predictions"
+								text="See predictions →"
+								className="p-2 w-40 my-2"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	);
 }
 

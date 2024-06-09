@@ -36,7 +36,10 @@ function StocksPage() {
 
 		if (content.length === 0) {
 			content = (
-				<p className="my-auto">
+				<p
+					className="my-auto neumo-text-error text-center"
+					aria-label="Warning message - stocks not found"
+				>
 					No stocks that would meet the query were found.
 				</p>
 			);
@@ -51,12 +54,11 @@ function StocksPage() {
 			<div className="text-center flex flex-col items-center justify-center gap-4">
 				<p>
 					Currently we support <strong>{stocks.length}</strong>{" "}
-					stocks. In order to add a new one please contact us and
-					let's start the conversation.
+					stocks. In order to add a new one stock please contact us.
 				</p>
 				<CustomLink
 					to="/contact"
-					text="Let's talk!"
+					text="Contact us"
 					className="neumo-out mt-4 p-4"
 					c2a
 				/>
@@ -64,22 +66,20 @@ function StocksPage() {
 		);
 
 	return (
-		<main className="neumo flex-grow">
-			<div className="container mx-auto py-6 flex flex-col h-full">
-				<h1 className="neumo-out text-3xl mb-16 p-5">Stocks</h1>
-				<SearchStockBar
-					className="mb-6"
-					value={searchQuery}
-					handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-						setSearchQuery(e.target.value);
-					}}
-				/>
-				{introduction}
-				<div className="my-8 flex flex-1 flex-col justify-start items-center">
-					{content}
-				</div>
+		<div className="container mx-auto py-6 flex flex-col h-full">
+			<h1 className="neumo-out text-3xl mb-16 p-5">Stocks</h1>
+			<SearchStockBar
+				className="mb-6"
+				value={searchQuery}
+				handleChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+					setSearchQuery(e.target.value);
+				}}
+			/>
+			{introduction}
+			<div className="my-8 flex flex-1 flex-col justify-start items-center">
+				{content}
 			</div>
-		</main>
+		</div>
 	);
 }
 

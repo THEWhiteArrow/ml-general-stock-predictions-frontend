@@ -21,8 +21,9 @@ function StockDetailPage() {
 				setStock(response.stocks[0]);
 			} else {
 				setError(
-					"Failed to fetch the stock. Please make sure the stock symbol is correct or contact the support."
+					"Failed to fetch the stock. Please make sure the stock symbol is correct or contact the developers."
 				);
+				setLoading(false);
 			}
 		};
 
@@ -51,7 +52,11 @@ function StockDetailPage() {
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stock {symbol}</h1>
 				<div className="mb-6 flex flex-col items-center flex-grow">
 					{loading && <Spinner className="my-auto" />}
-					{error && <p className="neumo-text-error">{error}</p>}
+					{error && (
+						<p className="my-auto neumo-text-error text-center">
+							{error}
+						</p>
+					)}
 					{!loading && stock && (
 						<StockDetail {...stock} histories={histories} />
 					)}
