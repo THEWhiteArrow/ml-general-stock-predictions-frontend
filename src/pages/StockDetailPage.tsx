@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import { Stock, History, getHistory, getStocks } from "../services/DataService";
 import StockDetail from "../components/StockDetail";
-import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
+import { getNthPreviousWorkingDate } from "../utils/dateUtils";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
 
