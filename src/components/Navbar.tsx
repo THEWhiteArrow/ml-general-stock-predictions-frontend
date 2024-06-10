@@ -15,7 +15,7 @@ function Navbar() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 	return (
-		<header className="fixed inset-x-0 top-0 z-50 neumo neumo-out-sm">
+		<header className="fixed inset-x-0 top-0 z-50 neumo neumo-out-sm rounded-none">
 			<nav
 				className="flex items-center justify-between p-6 md:px-8"
 				aria-label="Global"
