@@ -16,6 +16,7 @@ import LoaderHandler from "../components/LoaderHandler";
 import DatePicker from "../components/DatePicker";
 import Accordion from "../components/Accordion";
 import Footer from "../components/Footer";
+import { Helmet } from "react-helmet";
 
 function PredictionsOverview() {
 	const [loading, setLoading] = React.useState(true);
@@ -169,6 +170,13 @@ function PredictionsOverview() {
 
 	return (
 		<>
+			<Helmet>
+				<title>Predictions Overview | GSP</title>
+				<meta
+					name="description"
+					content="Overview of all predictions available in the General Stock Predictions platform."
+				/>
+			</Helmet>
 			<div className="container mx-auto py-6 flex flex-col h-full">
 				<h1 className="neumo-out text-3xl mb-16 p-5">
 					Predictions Overview

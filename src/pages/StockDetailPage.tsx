@@ -5,6 +5,7 @@ import { Stock, History, getHistory, getStocks } from "../services/DataService";
 import StockDetail from "../components/StockDetail";
 import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
 import Footer from "../components/Footer";
+import { Helmet } from "react-helmet";
 
 function StockDetailPage() {
 	const { symbol } = useParams<{ symbol: string }>();
@@ -48,6 +49,10 @@ function StockDetailPage() {
 
 	return (
 		<>
+			<Helmet>
+				<title>Stock {symbol} | GSP</title>
+				<meta name="description" content={`Stock ${symbol} details`} />
+			</Helmet>
 			<div className="container mx-auto py-6 flex flex-col h-full">
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stock {symbol}</h1>
 				<div className="mb-6 flex flex-col items-center flex-grow">

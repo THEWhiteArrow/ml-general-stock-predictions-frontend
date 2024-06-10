@@ -5,6 +5,8 @@ import StockInfoCard from "../components/StockInfoCard";
 import CustomLink from "../components/CustomLink";
 import SearchStockBar, { isQueryRelevant } from "../components/SearchStockBar";
 import Footer from "../components/Footer";
+import { Helmet } from "react-helmet";
+
 function StocksPage() {
 	const [loading, setLoading] = React.useState(true);
 	const [stocks, setStocks] = React.useState<Stock[]>([]);
@@ -68,6 +70,13 @@ function StocksPage() {
 
 	return (
 		<>
+			<Helmet>
+				<title>Stocks Overview | GSP</title>
+				<meta
+					name="description"
+					content="Overview of all stocks available in the General Stock Predictions platform."
+				/>
+			</Helmet>
 			<div className="container mx-auto py-6 flex flex-col h-full">
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stocks</h1>
 				<SearchStockBar

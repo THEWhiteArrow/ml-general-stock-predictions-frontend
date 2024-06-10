@@ -2,6 +2,7 @@ import { HashLink } from "react-router-hash-link";
 import Footer from "../components/Footer";
 import { ReactComponent as EntitiesSvg } from "../assets/svgs/entities.svg";
 import CustomLink from "../components/CustomLink";
+import { Helmet } from "react-helmet";
 
 const sections = [
 	"Introduction",
@@ -17,6 +18,13 @@ const sections = [
 function HowPage() {
 	return (
 		<>
+			<Helmet>
+				<title>How does it work? | GSP</title>
+				<meta
+					name="description"
+					content="A short article explaining how GSP project works"
+				/>
+			</Helmet>
 			<section className="flex flex-grow">
 				<div className="container mx-auto py-6 flex flex-col h-full">
 					<h1 className="neumo-out text-3xl mb-16 p-5">
