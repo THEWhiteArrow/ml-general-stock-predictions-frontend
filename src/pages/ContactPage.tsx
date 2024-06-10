@@ -27,6 +27,14 @@ function ContactPage() {
 						<LinkedinSvg className="w-8 h-8 mx-2" />
 					</a>
 					<a
+						aria-label="Email"
+						href="mailto:damian.trafialek@gmail.com"
+						// target="_blank"
+						className="neumo p-4 neumo-out neumo-interactive"
+					>
+						<GoogleSvg className="w-8 h-8 mx-2" />
+					</a>
+					<a
 						aria-label="GitHub"
 						href="https://github.com/THEWhiteArrow"
 						target="_blank"
@@ -34,15 +42,6 @@ function ContactPage() {
 						rel="noopener noreferrer"
 					>
 						<GithubSvg className="w-8 h-8 mx-2" />
-					</a>
-
-					<a
-						aria-label="Email"
-						href="mailto:damian.trafialek@gmail.com"
-						// target="_blank"
-						className="neumo p-4 neumo-out neumo-interactive"
-					>
-						<GoogleSvg className="w-8 h-8 mx-2" />
 					</a>
 				</div>
 				<p className="text-center">Hear from you soon!</p>

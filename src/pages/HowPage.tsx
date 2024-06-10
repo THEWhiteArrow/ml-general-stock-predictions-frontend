@@ -24,8 +24,8 @@ function HowPage() {
 					</h1>
 
 					<div className="p-4">
-						<p className="italic font-bold">
-							Estimated reading time : 5 mins
+						<p className="italic font-bold neumo-text-error">
+							Estimated reading time : ~7 minutes
 						</p>
 						<p className="italic">
 							A short article for people interested in the
@@ -185,9 +185,11 @@ function HowPage() {
 
 					<p className="mt-4">
 						As you know the project is a machine learning project
-						developed in python. However, as broad as it may sound I
-						will introduce you briefly to the techniques used in the
-						model.
+						and specifically a Time-series Forecasting one. The
+						model is responsible for predicting the future stock
+						prices based on the historical data. However, as broad
+						as it may sound I will introduce you briefly to the
+						techniques used in the model.
 					</p>
 					<p className="mt-4">
 						Here is some small lingo of the words in the field.
@@ -279,7 +281,7 @@ function HowPage() {
 					</ul>
 					<EntitiesSvg className="w-1/2 mx-auto my-2" />
 					<p className="mt-4">
-						Now you can wonder why the heck the Histories and
+						Now, you can wonder why the heck the Histories and
 						Predicitons should have the reference to the Stocks and
 						not the other way around.
 					</p>
@@ -360,22 +362,29 @@ function HowPage() {
 						requests.
 					</p>
 
+					<p className="mt-4">
+						One of the non-fucntional requirements that I gave my
+						project was to follow the Neumorphism pattern on the
+						website. I have managed to achieve that by using the
+						Tailwind CSS and the custom components that I have
+						developed. The website is fully responsive and is
+						available on all devices.
+					</p>
+
 					<div className="pt-32" id="Conclusion">
 						<h2 className="text-xl neumo-out p-4">Conclusion</h2>
 					</div>
 					<p className="mt-4">
 						Well, during the development of the project I have
 						learned that the proper organisation and planning is
-						crucial for the success of the project. I am very happy
-						that it is finally in the state that I can share it with
-						you. From the 1 person team perspective I am very proud
-						that even though at times it seemed there was no end to
-						the project, I have managed to finish it.
+						crucial for the success of the project.
 					</p>
-
 					<p className="mt-4">
-						I looking forward to starting new projects either by
-						myself or in a team.
+						I am very happy that it is finally in the state that I
+						can share it with you. From the 1 person team
+						perspective I am very proud that even though at times it
+						seemed there was no end to the project, I have managed
+						to finish it.
 					</p>
 
 					<p className="mt-4">
