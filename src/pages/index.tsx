@@ -5,6 +5,7 @@ import StocksPage from "./StocksPage";
 import StockDetailPage from "./StockDetailPage";
 import Root from "./Root";
 import ContactPage from "./ContactPage";
+import HowPage from "./HowPage";
 
 export {
 	HomePage,
@@ -14,4 +15,5 @@ export {
 	StockDetailPage,
 	Root,
 	ContactPage,
+	HowPage,
 };

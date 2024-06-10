@@ -10,6 +10,7 @@ import {
 	StocksPage,
 	Root,
 	ContactPage,
+	HowPage,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
 			{
 				path: "/contact",
 				element: <ContactPage />,
+			},
+			{
+				path: "/how",
+				element: <HowPage />,
 			},
 			{
 				path: "*",

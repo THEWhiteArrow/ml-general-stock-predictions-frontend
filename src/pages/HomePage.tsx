@@ -14,7 +14,9 @@ function HomePage() {
 					</div>
 					<div className="text-center">
 						<h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-							General Stock Predictions
+							General Stock
+							<br />
+							Predictions
 						</h1>
 						<p className="mt-6 text-lg leading-8 text-gray-600">
 							The platform that will help you invest in the stock
@@ -24,12 +26,12 @@ function HomePage() {
 							<CustomLink
 								to="/stocks"
 								text="← See all stocks"
-								className="p-2 w-40 my-2"
+								className="p-4 w-48 my-2"
 							/>
 							<CustomLink
 								to="/predictions"
 								text="See predictions →"
-								className="p-2 w-40 my-2"
+								className="p-4 w-48 my-2"
 							/>
 						</div>
 					</div>

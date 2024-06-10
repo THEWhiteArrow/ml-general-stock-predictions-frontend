@@ -59,7 +59,7 @@ function StocksPage() {
 				</p>
 				<CustomLink
 					to="/contact"
-					text="Contact us"
+					text="Contact me"
 					className="neumo-out mt-4 p-4"
 					c2a
 				/>
