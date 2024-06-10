@@ -1,4 +1,7 @@
-const getNthPreviousWorkingDate = (days: number, date: Date): Date => {
+const getNthPreviousWorkingDate = (
+	days: number = 0,
+	date: Date = getToday()
+): Date => {
 	let newDate = new Date(date);
 
 	if (newDate.getDay() === 6)

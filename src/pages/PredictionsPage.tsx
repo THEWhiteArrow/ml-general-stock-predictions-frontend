@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SearchStockBar, { isQueryRelevant } from "../components/SearchStockBar";
-import StockPredictionCard from "../components/StockPredictionCard";
+import StockPredictionCard, {
+	DataType,
+} from "../components/StockPredictionCard";
 import Spinner from "../components/Spinner";
 import {
 	getStocks,
@@ -11,162 +13,113 @@ import {
 	Generation,
 	Prediction,
 } from "../services/DataService";
-import { getNthPreviousWorkingDate, getToday } from "../utils/dateUtils";
+import { transformData } from "../components/Graph";
+import { getNthPreviousWorkingDate as getNPWDay } from "../utils/dateUtils";
 import LoaderHandler from "../components/LoaderHandler";
 import DatePicker from "../components/DatePicker";
-import Accordion from "../components/Accordion";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
+import GenerationInfo from "../components/GenerationInfo";
+
+type PreProcessedDataType = {
+	[key: string]: DataType[];
+};
+
+function preProcessData(
+	stocks: Stock[],
+	histories: History[],
+	generation?: Generation | null
+): PreProcessedDataType {
+	if (stocks.length === 0) return {};
+
+	const preProcessData: PreProcessedDataType = {};
+	for (let stock of stocks) {
+		const combinedData = [
+			...histories
+				.filter((el: History) => el.stock === stock._id)
+				.map((el: History) => ({
+					date: new Date(el.date),
+					history: el.close,
+				})),
+			...(generation?.predictions || [])
+				.filter((el: Prediction) => el.stock === stock._id)
+				.map((el: Prediction) => ({
+					date: new Date(el.date),
+					prediction: el.close,
+				})),
+		];
+
+		preProcessData[stock.symbol] = transformData(combinedData);
+	}
+
+	return preProcessData;
+}
 
 function PredictionsOverview() {
-	const [loading, setLoading] = React.useState(true);
-	const [searchQuery, setSearchQuery] = React.useState("");
-	const [predictionDate, setPredictionDate] = React.useState(
-		getNthPreviousWorkingDate(0, getToday())
-	);
-	const [displayLimit, setDisplayLimit] = React.useState(10);
-	const [histories, setHistories] = React.useState<History[]>([]);
-	const [stocks, setStocks] = React.useState<Stock[]>([]);
-	const [generation, setGeneration] = React.useState<Generation | null>(null);
+	const [loading, setLoading] = useState(true);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [predictionDate, setPredictionDate] = useState(getNPWDay());
+	const [displayLimit, setDisplayLimit] = useState(10);
+	const [histories, setHistories] = useState<History[]>([]);
+	const [stocks, setStocks] = useState<Stock[]>([]);
+	const [relevantStocks, setRelevantStocks] = useState<Stock[]>([]);
+	const [generation, setGeneration] = useState<Generation | null>(null);
+	const [error, setError] = useState("");
+	const [preProcessedData, setPreProcessedData] =
+		useState<PreProcessedDataType>({});
 
 	useEffect(() => {
 		const fetchStocks = async () => {
-			const stocksResponse = await getStocks();
-			setStocks(stocksResponse.stocks);
+			try {
+				const response = await getStocks();
+				setStocks(response.stocks);
+			} catch (e: any) {
+				setError(e.message);
+			}
 		};
+
 		const fetchHistories = async () => {
-			const historyResponse = await getHistory(
-				getNthPreviousWorkingDate(150, getToday())
-			);
-			setHistories(historyResponse.histories);
+			try {
+				const response = await getHistory(getNPWDay(69));
+				setHistories(response.histories);
+			} catch (e: any) {
+				setError(e.message);
+			}
 		};
 		fetchStocks();
 		fetchHistories();
 	}, []);
 
 	useEffect(() => {
-		setLoading(false);
-	}, [histories, generation]);
+		if (stocks.length === 0 || !predictionDate) return;
 
-	useEffect(() => {
-		setLoading(true);
-		const fetchPredictions = async () => {
+		const fetchGeneration = async () => {
 			try {
-				const generationResponse = await getGeneration(predictionDate);
-				setGeneration(generationResponse.generation);
-				console.log(generationResponse.generation);
+				const response = await getGeneration(predictionDate);
+				setGeneration(response.generation);
 			} catch (e: any) {
-				setGeneration(null);
-			} finally {
-				setLoading(false);
+				console.log(e.message);
 			}
 		};
-		fetchPredictions();
-	}, [predictionDate]);
+		fetchGeneration();
+	}, [stocks, predictionDate]);
 
-	let content = null;
-	let relevantCnt = 0;
-	if (loading) {
-		content = <Spinner />;
-	} else if (stocks.length && (histories.length || generation)) {
-		const relevantStocks = stocks.filter((el: Stock) =>
-			isQueryRelevant(el, searchQuery)
-		);
-		relevantCnt = relevantStocks.length;
-		content = relevantStocks
+	useEffect(() => {
+		if (stocks.length === 0 || histories.length === 0) return;
+		const preProcessedData = preProcessData(stocks, histories, generation);
+		setPreProcessedData(preProcessedData);
+		setLoading(false);
+	}, [stocks, histories, generation]);
+
+	useEffect(() => {
+		if (stocks.length === 0) return;
+
+		const relevantStocks = stocks
 			.sort((a: Stock, b: Stock) => a.company.localeCompare(b.company))
-			.slice(0, displayLimit)
-			.map((stock: Stock) => (
-				<StockPredictionCard
-					key={stock.symbol}
-					company={stock.company}
-					symbol={stock.symbol}
-					area={stock.area}
-					className="w-full sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-4/12 flex-grow"
-					data={[
-						...(generation?.predictions
-							.filter((el: Prediction) => el.stock === stock._id)
-							?.map((el: Prediction) => ({
-								date: new Date(el.date),
-								prediction: el.close,
-							})) || []),
-						...histories
-							.filter((el: History) => el.stock === stock._id)
-							.map((el: History) => ({
-								date: new Date(el.date),
-								history: el.close,
-							})),
-					]}
-				/>
-			));
+			.filter((stock: Stock) => isQueryRelevant(stock, searchQuery));
 
-		if (content.length === 0) {
-			content = (
-				<p
-					className="my-auto neumo-text-error text-center"
-					aria-label="Warning message - stocks not found"
-				>
-					No stocks that would meet the query were found.
-				</p>
-			);
-		}
-	}
-
-	let generationInfo = null;
-	if (!generation)
-		generationInfo = (
-			<p
-				className="neumo-text-error text-center"
-				aria-label="Warning message - predictions not found"
-			>
-				No predictions for the chosen date are available. Please pick
-				another date or contact the developers.
-			</p>
-		);
-	else {
-		generationInfo = (
-			<Accordion title="Generation Info" className="neumo-out p-4">
-				<div className="neumo-in mt-4 mb-1 p-4 flex flex-col">
-					<h4 className="neumo-out mt-4 mb-2 p-2">Date</h4>
-					<p>
-						{new Date(generation.date).toISOString().split("T")[0]}
-					</p>
-
-					<h4 className="neumo-out mt-4 mb-2 p-2">Name</h4>
-					<p>{generation.name}</p>
-
-					<h4 className="neumo-out mt-4 mb-2 p-2">
-						Number of days into the past to consider
-					</h4>
-					<p>{generation.days_back_to_consider}</p>
-					<h4 className="neumo-out mt-4 mb-2 p-2">
-						Number of days into the future to predict
-					</h4>
-
-					<p>{generation.n_step}</p>
-					<h4 className="neumo-out mt-4 mb-2 p-2">
-						Categorical features used
-					</h4>
-					<p>{JSON.stringify(generation.categorical_features)}</p>
-
-					<h4 className="neumo-out mt-4 mb-2 p-2">
-						Label features used
-					</h4>
-					<p>{JSON.stringify(generation.label_features)}</p>
-
-					<h4 className="neumo-out mt-4 mb-2 p-2">
-						Moving window averages used
-					</h4>
-					<p>{JSON.stringify(generation.mwms)}</p>
-
-					<h4 className="neumo-out mt-4 mb-2 p-2">
-						Targe feature lags used
-					</h4>
-					<p>{JSON.stringify(generation.shifts)}</p>
-				</div>
-			</Accordion>
-		);
-	}
+		setRelevantStocks(relevantStocks);
+	}, [stocks, searchQuery]);
 
 	return (
 		<>
@@ -199,19 +152,50 @@ function PredictionsOverview() {
 					/>
 				</div>
 
-				<p className="mb-6">{!loading && generationInfo}</p>
+				{!loading && <GenerationInfo generation={generation} />}
 				<div className="mb-6 flex flex-1 flex-wrap items-center justify-evenly">
-					{content}
+					{loading && <Spinner />}
+					{!loading &&
+						relevantStocks.length > 0 &&
+						relevantStocks
+							.slice(0, displayLimit)
+							.map((stock: Stock) => (
+								<StockPredictionCard
+									key={stock._id}
+									className="w-full sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-4/12 flex-grow"
+									company={stock.company}
+									symbol={stock.symbol}
+									area={stock.area}
+									data={preProcessedData[stock.symbol] || []}
+								/>
+							))}
+					{!loading && relevantStocks.length === 0 && (
+						<p
+							className="my-auto neumo-text-error text-center"
+							aria-label="Warning message - stocks not found"
+						>
+							No stocks that would meet the query were found.
+						</p>
+					)}
+					{error && (
+						<p
+							className="my-auto neumo-text-error text-center"
+							aria-label="Error message"
+						>
+							{error}
+						</p>
+					)}
 				</div>
 
 				{!loading && stocks.length && (
 					<LoaderHandler
 						disableLessBtn={
-							displayLimit <= 10 || displayLimit >= relevantCnt
+							displayLimit <= 10 ||
+							displayLimit >= relevantStocks.length
 						}
 						disableMoreBtn={
 							displayLimit >= stocks.length ||
-							displayLimit >= relevantCnt
+							displayLimit >= relevantStocks.length
 						}
 						handleLess={() => setDisplayLimit(displayLimit - 10)}
 						handleMore={() => setDisplayLimit(displayLimit + 10)}

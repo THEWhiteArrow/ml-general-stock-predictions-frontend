@@ -20,6 +20,7 @@ type GraphProps = {
 	className?: string;
 	data: DataType[];
 	exclude?: string[];
+	skipTransform?: boolean;
 };
 
 function transformData(data: DataType[]) {
@@ -50,8 +51,15 @@ function transformData(data: DataType[]) {
 }
 
 function Graph(props: GraphProps) {
-	const { data, exclude = [], className } = props;
-	const transformedData: DataType[] = transformData(data);
+	const { data, exclude = [], className, skipTransform = false } = props;
+	let transformedData: DataType[] = [];
+
+	if (skipTransform) {
+		// console.log("skipping transformation");
+		transformedData = data;
+	} else {
+		transformedData = transformData(data);
+	}
 
 	return (
 		<ResponsiveContainer
@@ -111,4 +119,5 @@ function Graph(props: GraphProps) {
 }
 
 export default Graph;
+export { transformData };
 export type { DataType };

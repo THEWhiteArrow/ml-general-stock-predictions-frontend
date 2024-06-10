@@ -11,12 +11,19 @@ function StocksPage() {
 	const [loading, setLoading] = React.useState(true);
 	const [stocks, setStocks] = React.useState<Stock[]>([]);
 	const [searchQuery, setSearchQuery] = React.useState("");
+	const [error, setError] = React.useState("");
 
 	React.useEffect(() => {
 		const fetchStocks = async () => {
-			const stocksResponse = await getStocks({ description: true });
-			setStocks(stocksResponse.stocks);
-			setLoading(false);
+			try {
+				const stocksResponse = await getStocks({ description: true });
+				setStocks(stocksResponse.stocks);
+				setLoading(false);
+			} catch (e: any) {
+				setError(e);
+			} finally {
+				setLoading(false);
+			}
 		};
 		fetchStocks();
 	}, []);
@@ -25,7 +32,7 @@ function StocksPage() {
 
 	if (loading) {
 		content = <Spinner className="my-auto" />;
-	} else if (stocks.length) {
+	} else if (!loading && stocks.length > 0) {
 		content = stocks
 			.filter((stock) => isQueryRelevant(stock, searchQuery))
 			.sort((a, b) => a.company.localeCompare(b.company))
@@ -47,6 +54,15 @@ function StocksPage() {
 				</p>
 			);
 		}
+	} else if (error) {
+		content = (
+			<p
+				className="my-auto neumo-text-error text-center"
+				aria-label="Error message"
+			>
+				{error}
+			</p>
+		);
 	}
 
 	let introduction = null;

@@ -8,10 +8,11 @@ type StockPredictionCardProps = {
 	symbol: string;
 	area: string;
 	data: DataType[];
+	skipTransform?: boolean;
 };
 
 function StockPredictionCard(props: StockPredictionCardProps) {
-	const { className, company, symbol, data } = props;
+	const { className, company, symbol, data, skipTransform } = props;
 
 	return (
 		<div className={`flex ${className} p-6`}>
@@ -27,7 +28,7 @@ function StockPredictionCard(props: StockPredictionCardProps) {
 					</Link>
 				</div>
 
-				<Graph data={data} />
+				<Graph data={data} skipTransform={skipTransform} />
 			</div>
 		</div>
 	);

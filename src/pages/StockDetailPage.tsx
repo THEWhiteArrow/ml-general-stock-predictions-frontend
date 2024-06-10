@@ -11,19 +11,20 @@ function StockDetailPage() {
 	const { symbol } = useParams<{ symbol: string }>();
 	const [loading, setLoading] = useState(true);
 	const [stock, setStock] = useState<Stock | null>(null);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<string>("");
 	const [histories, setHistories] = useState<History[]>([]);
 
 	useEffect(() => {
 		const fetchStock = async () => {
-			const response = await getStocks({ symbol, description: true });
-			if (response.stocks.length > 0) {
-				setError(null);
+			try {
+				const response = await getStocks({ symbol, description: true });
+				if (response.stocks.length === 0) {
+					throw new Error("Stock not found");
+				}
 				setStock(response.stocks[0]);
-			} else {
-				setError(
-					"Failed to fetch the stock. Please make sure the stock symbol is correct or contact the developers."
-				);
+			} catch (e: any) {
+				setError(e.message);
+			} finally {
 				setLoading(false);
 			}
 		};
@@ -33,10 +34,9 @@ function StockDetailPage() {
 
 	useEffect(() => {
 		const fetchHistory = async () => {
-			const response = await getHistory(
-				getNthPreviousWorkingDate(300, getToday()),
-				{ stockId: stock?._id }
-			);
+			const response = await getHistory(getNthPreviousWorkingDate(300), {
+				stockId: stock?._id,
+			});
 
 			setHistories(response.histories);
 			setLoading(false);
@@ -62,7 +62,7 @@ function StockDetailPage() {
 							{error}
 						</p>
 					)}
-					{!loading && stock && (
+					{!loading && stock && histories.length > 0 && (
 						<StockDetail {...stock} histories={histories} />
 					)}
 				</div>
