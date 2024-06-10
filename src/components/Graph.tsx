@@ -22,8 +22,7 @@ type GraphProps = {
 	exclude?: string[];
 };
 
-function Graph(props: GraphProps) {
-	const { data, exclude = [], className } = props;
+function transformData(data: DataType[]) {
 	const transformedData: DataType[] = [];
 
 	data.sort(
@@ -47,6 +46,13 @@ function Graph(props: GraphProps) {
 					prediction,
 			};
 	});
+	return transformedData;
+}
+
+function Graph(props: GraphProps) {
+	const { data, exclude = [], className } = props;
+	const transformedData: DataType[] = transformData(data);
+
 	return (
 		<ResponsiveContainer
 			className={`my-2 pr-4 ${className}`}
