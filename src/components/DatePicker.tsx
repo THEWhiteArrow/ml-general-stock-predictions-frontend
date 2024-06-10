@@ -18,7 +18,7 @@ function DatePicker(props: DatePickerProps) {
 			>
 				Previous
 			</button>
-			<p className="neumo-out p-4">
+			<p className="neumo-out py-4 px-2 md:p-4 text-center">
 				{date.toLocaleString("default", {
 					day: "numeric",
 					month: "long",

@@ -130,7 +130,7 @@ function PredictionsOverview() {
 					content="Overview of all predictions available in the General Stock Predictions platform."
 				/>
 			</Helmet>
-			<div className="container mx-auto py-6 flex flex-col h-full">
+			<div className="container mx-auto py-6 flex flex-col h-full text-sm md:text-base">
 				<h1 className="neumo-out text-3xl mb-16 p-5">
 					Predictions Overview
 				</h1>

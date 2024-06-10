@@ -25,7 +25,7 @@ function HowPage() {
 					content="A short article explaining how GSP project works"
 				/>
 			</Helmet>
-			<section className="flex flex-grow">
+			<section className="flex flex-grow text-sm md:text-base">
 				<div className="container mx-auto py-6 flex flex-col h-full">
 					<h1 className="neumo-out text-3xl mb-16 p-5">
 						How does it work?
@@ -148,7 +148,7 @@ function HowPage() {
 							href="https://developer.yahoo.com/api/"
 							className="underline neumo-text-error"
 							target="_blank"
-							rel="noopenner noreferrer"
+							rel="noopener noreferrer"
 							aria-label="Yahoo Finance API Link"
 						>
 							Yahoo Finance API
@@ -300,7 +300,7 @@ function HowPage() {
 							className="underline neumo-text-error"
 							target="_blank"
 							href="https://www.mongodb.com/developer/products/mongodb/schema-design-anti-pattern-summary/"
-							rel="noopenner noreferrer"
+							rel="noopener noreferrer"
 							aria-label="MongoDb Anti-Patterns Link"
 						>
 							MongoDb Anti-Patterns

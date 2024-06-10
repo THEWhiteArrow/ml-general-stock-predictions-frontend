@@ -21,9 +21,7 @@ function isQueryRelevant(stock: Stock, searchQuery: string) {
 function SearchBar(props: SearchBarProps) {
 	const { className, value, handleChange } = props;
 	return (
-		<div
-			className={`flex flex-col w-full mx-auto font-[sans-serif] ${className}`}
-		>
+		<div className={`flex flex-col w-full mx-auto ${className}`}>
 			<label htmlFor="stock-search" className="mb-4">
 				In order to quickly filter the stocks, please type the name,
 				company, or symbol of the stock you are looking for.

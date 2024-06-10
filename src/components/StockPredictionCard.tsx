@@ -15,7 +15,7 @@ function StockPredictionCard(props: StockPredictionCardProps) {
 	const { className, company, symbol, data, skipTransform } = props;
 
 	return (
-		<div className={`flex ${className} p-6`}>
+		<div className={`flex ${className} px-0 py-6 md:p-6`}>
 			<div className="neumo neumo-out w-full h-full flex flex-col items-center">
 				<div className="text-sm md:text-base neumo-out py-4 px-4 flex-grow flex w-full items-center justify-between">
 					<h3>{company}</h3>

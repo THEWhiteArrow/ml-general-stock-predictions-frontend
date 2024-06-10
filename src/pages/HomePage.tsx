@@ -35,19 +35,19 @@ function HomePage() {
 								<CustomLink
 									to="/stocks"
 									text="← See all stocks"
-									className="p-4 w-48 my-2"
+									className="p-2 md:p-4 text-sm w-44 md:text-base md:w-48 my-2"
 									aria-label="See all stocks"
 								/>
 								<CustomLink
 									to="/how"
 									text="?? How ??"
-									className="p-4 w-48 my-2"
+									className="p-2 md:p-4 text-sm w-44 md:text-base md:w-48 my-2"
 									aria-label="How it works"
 								/>
 								<CustomLink
 									to="/predictions"
 									text="See predictions →"
-									className="p-4 w-48 my-2"
+									className="p-2 md:p-4 text-sm w-44 md:text-base md:w-48 my-2"
 									aria-label="See predictions"
 								/>
 							</div>

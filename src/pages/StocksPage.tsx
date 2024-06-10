@@ -78,7 +78,7 @@ function StocksPage() {
 				<CustomLink
 					to="/contact"
 					text="Contact me"
-					className="neumo-out mt-4 p-4"
+					className="neumo-out mt-4 p-2 md:p-4"
 					c2a
 				/>
 			</div>
@@ -93,7 +93,7 @@ function StocksPage() {
 					content="Overview of all stocks available in the General Stock Predictions platform."
 				/>
 			</Helmet>
-			<div className="container mx-auto py-6 flex flex-col h-full">
+			<div className="container mx-auto py-6 flex flex-col h-full text-sm md:test-base">
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stocks</h1>
 				<SearchStockBar
 					className="mb-6"

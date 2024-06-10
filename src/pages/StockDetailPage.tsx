@@ -39,7 +39,6 @@ function StockDetailPage() {
 			});
 
 			setHistories(response.histories);
-			setLoading(false);
 		};
 
 		if (stock) {
@@ -53,7 +52,7 @@ function StockDetailPage() {
 				<title>Stock {symbol} | GSP</title>
 				<meta name="description" content={`Stock ${symbol} details`} />
 			</Helmet>
-			<div className="container mx-auto py-6 flex flex-col h-full">
+			<div className="container mx-auto py-6 flex flex-col h-full text-sm md:text-base">
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stock {symbol}</h1>
 				<div className="mb-6 flex flex-col items-center flex-grow">
 					{loading && <Spinner className="my-auto" />}

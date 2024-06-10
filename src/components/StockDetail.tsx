@@ -42,7 +42,7 @@ function StockDetail(props: StockDetailProps) {
 			</h2>
 			<p>{description}</p>
 
-			<div className="flex flex-col md:flex-row neumo-out p-4 my-8">
+			<div className="flex flex-col md:flex-row neumo-out p-1 md:p-4 my-8">
 				<Graph
 					data={histories.map((history) => ({
 						date: new Date(history.date),
@@ -72,14 +72,17 @@ function StockDetail(props: StockDetailProps) {
 				<CustomLink
 					to={`/stocks`}
 					text="← Back to Stocks"
-					className="my-2 p-4 w-full md:w-64 text-center"
+					className="p-2 md:p-4 w-full md:w-64 text-center"
 				/>
 
-				<CustomLink
-					to={`https://finance.yahoo.com/quote/${symbol}/`}
-					text="Visit Yahoo Finance →"
-					className="my-2 p-4 w-full md:w-64 text-center"
-				/>
+				<a
+					href={`https://finance.yahoo.com/quote/${symbol}/`}
+					className="neumo neumo-out neumo-interactive p-2 md:p-4 w-full md:w-64 text-center"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Visit Yahoo Finance →
+				</a>
 			</div>
 		</div>
 	);

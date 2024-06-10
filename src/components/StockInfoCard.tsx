@@ -12,11 +12,22 @@ function StockInfoCard(props: StockInfoCardProps) {
 	const { company, symbol, area, description, className } = props;
 	return (
 		<div className={`${className}`}>
-			<div className="m-4 neumo-out flex flex-col p-2 flex-grow">
-				<Accordion title={`${company} | ${symbol}`}>
+			<div className="my-4 neumo-out flex flex-col p-2 flex-grow">
+				<Accordion title={`${company}`}>
 					<div className="neumo-in mt-4 mb-1 p-4 divide-y">
 						<p>
-							Main industry :{" "}
+							Symbol :&nbsp;
+							{symbol}
+						</p>
+						<hr
+							style={{
+								height: "2px",
+								backgroundColor: "#00000055",
+								width: "100%",
+							}}
+						/>
+						<p>
+							Main industry :&nbsp;
 							{area.replaceAll("_", " ").toLocaleLowerCase()}
 						</p>
 						<hr
@@ -32,7 +43,7 @@ function StockInfoCard(props: StockInfoCardProps) {
 							<CustomLink
 								to={`/stocks/${symbol}`}
 								text="Details →"
-								className="p-4 mt-1"
+								className="p-2 md:p-4 mt-1"
 							/>
 						</div>
 					</div>
