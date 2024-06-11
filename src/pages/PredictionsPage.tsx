@@ -84,6 +84,9 @@ function PredictionsOverview() {
 			try {
 				const response = await getHistory(getNPWDay(69));
 				setHistories(response.histories);
+				if (response.histories.length === 0) {
+					setError("No historical data found.");
+				}
 			} catch (e: any) {
 				setError(e.message);
 			}
@@ -110,7 +113,7 @@ function PredictionsOverview() {
 	}, [stocks, predictionDate]);
 
 	useEffect(() => {
-		if (stocks.length === 0 || histories.length === 0) return;
+		if (stocks.length === 0) return;
 		const preProcessedData = preProcessData(stocks, histories, generation);
 		setPreProcessedData(preProcessedData);
 		setLoading(false);
