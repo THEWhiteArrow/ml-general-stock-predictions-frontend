@@ -113,7 +113,7 @@ function PredictionsOverview() {
 	}, [stocks, predictionDate]);
 
 	useEffect(() => {
-		if (stocks.length === 0) return;
+		if (stocks.length === 0 || histories.length === 0) return;
 		const preProcessedData = preProcessData(stocks, histories, generation);
 		setPreProcessedData(preProcessedData);
 		setLoading(false);
