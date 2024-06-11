@@ -46,7 +46,7 @@ function GenerationInfo(props: GenerationInfoProps) {
 						{new Date(generation.date).toISOString().split("T")[0]}
 					</p>
 					<h4 className="neumo-out mt-4 mb-2 p-2">Created at</h4>
-					<p>{new Date(generation.date).toLocaleTimeString()}</p>
+					<p>{new Date(generation.date).toLocaleString()}</p>
 
 					<h4 className="neumo-out mt-4 mb-2 p-2">Name</h4>
 					<p>{generation.name}</p>
