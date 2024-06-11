@@ -58,7 +58,9 @@ function preProcessData(
 function PredictionsOverview() {
 	const [loading, setLoading] = useState(true);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [predictionDate, setPredictionDate] = useState(getNPWDay());
+	const [predictionDate, setPredictionDate] = useState(
+		new Date().getUTCHours() < 20 ? getNPWDay(-1) : getNPWDay()
+	);
 	const [displayLimit, setDisplayLimit] = useState(10);
 	const [histories, setHistories] = useState<History[]>([]);
 	const [stocks, setStocks] = useState<Stock[]>([]);
@@ -95,10 +97,13 @@ function PredictionsOverview() {
 
 		const fetchGeneration = async () => {
 			try {
+				setLoading(true);
 				const response = await getGeneration(predictionDate);
 				setGeneration(response.generation);
 			} catch (e: any) {
 				console.log(e.message);
+			} finally {
+				setLoading(false);
 			}
 		};
 		fetchGeneration();
@@ -152,7 +157,12 @@ function PredictionsOverview() {
 					/>
 				</div>
 
-				{!loading && <GenerationInfo generation={generation} />}
+				{!loading && (
+					<GenerationInfo
+						generation={generation}
+						predictionDate={predictionDate}
+					/>
+				)}
 				<div className="mb-6 flex flex-1 flex-wrap items-center justify-evenly">
 					{loading && <Spinner />}
 					{!loading &&

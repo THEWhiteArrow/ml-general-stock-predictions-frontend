@@ -3,21 +3,40 @@ import Accordion from "./Accordion";
 
 type GenerationInfoProps = {
 	generation: Generation | null;
+	predictionDate: Date;
 };
 
 function GenerationInfo(props: GenerationInfoProps) {
-	const { generation } = props;
+	const { generation, predictionDate } = props;
+
+	const currentDate = new Date();
+	const currentUTCHour = currentDate.getUTCHours();
 
 	if (!generation) {
-		return (
-			<p
-				className="neumo-text-error text-center mb-6"
-				aria-label="Warning message - predictions not found"
-			>
-				No predictions for the chosen date are available. Please pick
-				another date or contact the developers.
-			</p>
-		);
+		if (
+			predictionDate.toDateString() === currentDate.toDateString() &&
+			currentUTCHour < 20
+		) {
+			return (
+				<p
+					className="neumo-text-info text-center mb-6"
+					aria-label="Information"
+				>
+					Nice to see you! Please wait until 15:00 UTC for the newest
+					predictions to be generated.
+				</p>
+			);
+		} else {
+			return (
+				<p
+					className="neumo-text-error text-center mb-6"
+					aria-label="Warning message - predictions not found"
+				>
+					No predictions for the chosen date are available. Please
+					pick another date or contact the developers.
+				</p>
+			);
+		}
 	} else
 		return (
 			<Accordion title="Generation Info" className="neumo-out p-4 mb-6">

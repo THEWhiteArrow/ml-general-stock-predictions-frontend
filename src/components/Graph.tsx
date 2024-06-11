@@ -55,7 +55,6 @@ function Graph(props: GraphProps) {
 	let transformedData: DataType[] = [];
 
 	if (skipTransform) {
-		// console.log("skipping transformation");
 		transformedData = data;
 	} else {
 		transformedData = transformData(data);
@@ -101,6 +100,7 @@ function Graph(props: GraphProps) {
 					<Line
 						type="monotone"
 						dataKey="history"
+						connectNulls
 						stroke="#7a7a7a"
 						dot={false}
 					/>

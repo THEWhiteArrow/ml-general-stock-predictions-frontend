@@ -24,6 +24,7 @@
   --neumo-rounded: 5px;
 
   --neumo-text-error: #ec7b7b;
+  --neumo-text-info: #7b7bec;
 }
 
 * {
@@ -84,6 +85,9 @@ code {
 
 .neumo-text-error{
   color: var(--neumo-text-error);
+}
+.neumo-text-info{
+  color: var(--neumo-text-info);
 }
 
 .neumo-transition-all{
