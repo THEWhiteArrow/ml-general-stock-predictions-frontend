@@ -22,7 +22,7 @@ function GenerationInfo(props: GenerationInfoProps) {
 					className="neumo-text-info text-center mb-6"
 					aria-label="Information"
 				>
-					Nice to see you! Please wait until 15:00 UTC for the newest
+					Nice to see you! Please wait until 20:00 UTC for the newest
 					predictions to be generated or pick past date.
 				</p>
 			);
