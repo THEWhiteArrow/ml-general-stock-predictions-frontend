@@ -59,7 +59,7 @@ function PredictionsOverview() {
 	const [loading, setLoading] = useState(true);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [predictionDate, setPredictionDate] = useState(
-		new Date().getUTCHours() < 20 ? getNPWDay(-1) : getNPWDay()
+		new Date().getUTCHours() < 20 ? getNPWDay(1) : getNPWDay()
 	);
 	const [displayLimit, setDisplayLimit] = useState(10);
 	const [histories, setHistories] = useState<History[]>([]);
