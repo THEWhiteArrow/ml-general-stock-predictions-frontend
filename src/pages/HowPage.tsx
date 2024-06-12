@@ -33,7 +33,7 @@ function HowPage() {
 
 					<div className="p-4">
 						<p className="italic font-bold neumo-text-error">
-							Estimated reading time : ~7 minutes
+							Estimated reading time : ~8 minutes
 						</p>
 						<p className="italic">
 							A short article for people interested in the
