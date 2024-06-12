@@ -14,7 +14,7 @@ function DatePicker(props: DatePickerProps) {
 				Please choose a date for which to display the generation of
 				predictions.
 			</label>
-			<div className="flex flex-row justify-center gap-4 items-center mt-2">
+			<div className="flex flex-col md:flex-row justify-center gap-4 items-center mt-4">
 				<button
 					className="neumo-text-info neumo-out neumo-interactive p-2 w-32"
 					onClick={() => setDate(getNthPreviousWorkingDate(1, date))}
