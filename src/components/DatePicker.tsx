@@ -21,13 +21,15 @@ function DatePicker(props: DatePickerProps) {
 				>
 					Previous
 				</button>
-				<input
-					id="date"
-					className="p-4 neumo-text-info neumo neumo-out cursor-pointer"
-					type="date"
-					value={date.toISOString().split("T")[0]}
-					onChange={(e) => setDate(new Date(e.target.value))}
-				/>
+				<div className="flex neumo neumo-out">
+					<input
+						id="date"
+						className="flex-grow p-4 neumo neumo-text-info cursor-pointer"
+						type="date"
+						value={date.toISOString().split("T")[0]}
+						onChange={(e) => setDate(new Date(e.target.value))}
+					/>
+				</div>
 				<button
 					className="neumo-text-info neumo-out neumo-interactive p-2 disabled:opacity-50 disabled:cursor-not-allowed w-32"
 					disabled={date >= getToday()}
