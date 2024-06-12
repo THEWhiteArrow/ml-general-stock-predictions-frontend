@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +14,7 @@
   src: url("./assets/fonts/UbuntuSansMono-VariableFont_wght.ttf") format("truetype");
 }
 
-:root{
+:root {
   --primary: #e6e7ee;
   --shadow: #b8b9be;
   --light: #fff;
@@ -15,12 +22,12 @@
   --shadow-vertical: 3px;
   --shadow-blur: 6px;
   --shadow-spread: 0px;
-  
+
   --shadow-horizontal-sm: 1px;
   --shadow-vertical-sm: 1px;
   --shadow-blur-sm: 3px;
   --shadow-spread-sm: 0px;
-  
+
   --neumo-rounded: 5px;
 
   --neumo-text-error: #ec7b7b;
@@ -28,6 +35,7 @@
 }
 
 * {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
 }
@@ -42,12 +50,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html{
+html {
   min-height: 100vh;
 }
 
-html, body, #root {
+html,
+body,
+#root {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 
@@ -67,100 +81,138 @@ code {
     monospace;
 }
 
-.neumo{
+.neumo {
   background: var(--primary);
 }
 
-.neumo-rounded{
+.neumo-rounded {
   border-radius: var(--neumo-rounded);
 }
 
-.neumo-bg-shadow{
+.neumo-bg-shadow {
   background-color: var(--shadow);
 }
 
-.neumo-bg-light{
+.neumo-bg-light {
   background-color: var(--light);
 }
 
-.neumo-text-error{
+.neumo-text-error {
   color: var(--neumo-text-error);
 }
-.neumo-text-info{
+
+.neumo-text-info {
   color: var(--neumo-text-info);
 }
 
-.neumo-transition-all{
+.neumo-transition-all {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-.neumo-hover-text-error:hover{
+
+.neumo-hover-text-error:hover {
   color: var(--neumo-text-error);
 }
 
 
-  
-.neumo-out{
-  box-shadow: 
-  var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
-  calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
+
+.neumo-out {
+  -webkit-box-shadow:
+    var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow),
+    calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
+  box-shadow:
+    var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow),
+    calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: var(--neumo-rounded);
 }
-.neumo-out-sm{
-  box-shadow: 
-  var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
-  calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
+
+.neumo-out-sm {
+  -webkit-box-shadow:
+    var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow),
+    calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
+  box-shadow:
+    var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow),
+    calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
   border-radius: var(--neumo-rounded);
 }
-.neumo-in{
-  box-shadow: 
-  inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
-  inset calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
+
+.neumo-in {
+  -webkit-box-shadow:
+    inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow),
+    inset calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
+  box-shadow:
+    inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow),
+    inset calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: var(--neumo-rounded);
 }
-.neumo-in-sm{
-  box-shadow: 
-  inset var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
-  inset calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
+
+.neumo-in-sm {
+  -webkit-box-shadow:
+    inset var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow),
+    inset calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
+  box-shadow:
+    inset var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow),
+    inset calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
   border-radius: var(--neumo-rounded);
 }
-.rounded-none{
+
+.rounded-none {
   border-radius: 0px;
 }
 
-a.highlight-underline::after{
+a.highlight-underline::after {
   content: '';
   display: block;
-  width:0; 
+  width: 0;
   height: 2px;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
   background-color: var(--neumo-text-error);
 }
+
 a.highlight-underline:hover::after,
-a.highlight-underline.active::after{
+a.highlight-underline.active::after {
   width: 100%;
 }
 
-.neumo-interactive{
+.neumo-interactive {
+  -webkit-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
   transition: all 0.1s ease;
 }
+
 .neumo-out.neumo-interactive:hover,
-.neumo-out.neumo-interactive:focus
-{
-  box-shadow: 1px 1px 3px var(--shadow),-1px -1px 2px var(--light);
+.neumo-out.neumo-interactive:focus {
+  -webkit-box-shadow: 1px 1px 3px var(--shadow), -1px -1px 2px var(--light);
+  box-shadow: 1px 1px 3px var(--shadow), -1px -1px 2px var(--light);
+  -webkit-transform: scale(0.98);
+  -ms-transform: scale(0.98);
   transform: scale(0.98);
 }
 
 .neumo-in-sm.neumo-interactive:hover,
-.neumo-in-sm.neumo-interactive:focus
-{
+.neumo-in-sm.neumo-interactive:focus {
+  -webkit-box-shadow: inset 0.1px 0.1px 1px var(--shadow), inset -0.1px -0.1px 1px var(--light);
   box-shadow: inset 0.1px 0.1px 1px var(--shadow), inset -0.1px -0.1px 1px var(--light);
+  -webkit-transform: scale(1.02);
+  -ms-transform: scale(1.02);
   transform: scale(1.02);
 }
-.neumo-in-sm.neumo-interactive:active{
+
+.neumo-in-sm.neumo-interactive:active {
+  -webkit-box-shadow: none !important;
   box-shadow: none !important;
+  -webkit-transform: scale(1.04) !important;
+  -ms-transform: scale(1.04) !important;
   transform: scale(1.04) !important;
 }
-.neumo-out.neumo-interactive:active{
+
+.neumo-out.neumo-interactive:active {
+  -webkit-box-shadow: none !important;
   box-shadow: none !important;
+  -webkit-transform: scale(0.96) !important;
+  -ms-transform: scale(0.96) !important;
   transform: scale(0.96) !important;
 }
