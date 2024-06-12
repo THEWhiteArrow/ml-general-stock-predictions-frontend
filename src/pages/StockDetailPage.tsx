@@ -51,6 +51,20 @@ function StockDetailPage() {
 			<Helmet>
 				<title>Stock {symbol} | GSP</title>
 				<meta name="description" content={`Stock ${symbol} details`} />
+				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+				{/* Open Graph meta tags for social media */}
+				<meta property="og:title" content="Stock Details | GSP" />
+				<meta
+					property="og:description"
+					content={`Stock ${symbol} details for the General Stock Predictions platform.`}
+				/>
+				<meta property="og:image" content="/homepage-thumbnail.png" />
+				<meta
+					property="og:url"
+					content={`http://gsp.trafialek.com/stocks/${symbol}`}
+				/>
+				<meta property="og:type" content="website" />
 			</Helmet>
 			<div className="container mx-auto py-6 flex flex-col h-full text-sm md:text-base">
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stock {symbol}</h1>

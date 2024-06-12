@@ -10,6 +10,17 @@ function HomePage() {
 					name="description"
 					content="The platform that will help you invest in the stock markets thanks to the power of AI."
 				/>
+				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+				{/* Open Graph meta tags for social media */}
+				<meta property="og:title" content="General Stock Predictions" />
+				<meta
+					property="og:description"
+					content="The platform that will help you invest in the stock markets thanks to the power of AI."
+				/>
+				<meta property="og:image" content="/homepage-thumbnail.png" />
+				<meta property="og:url" content="http://gsp.trafialek.com" />
+				<meta property="og:type" content="website" />
 			</Helmet>
 			<section className="flex flex-grow justify-center items-center">
 				<div className="relative isolate px-6 lg:px-8">

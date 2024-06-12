@@ -138,6 +138,20 @@ function PredictionsOverview() {
 					name="description"
 					content="Overview of all predictions available in the General Stock Predictions platform."
 				/>
+				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+				{/* Open Graph meta tags for social media */}
+				<meta property="og:title" content="Predictions | GSP" />
+				<meta
+					property="og:description"
+					content="Overview of all predictions available in the General Stock Predictions platform."
+				/>
+				<meta property="og:image" content="/homepage-thumbnail.png" />
+				<meta
+					property="og:url"
+					content="http://gsp.trafialek.com/predictions"
+				/>
+				<meta property="og:type" content="website" />
 			</Helmet>
 			<div className="container mx-auto py-6 flex flex-col h-full text-sm md:text-base">
 				<h1 className="neumo-out text-3xl mb-16 p-5">

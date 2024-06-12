@@ -39,7 +39,7 @@ function StockInfoCard(props: StockInfoCardProps) {
 						/>
 						<p className="mb-2">{description}</p>
 
-						<div className="flex flex-row justify-end">
+						<div className="flex flex-row justify-end neumo-text-info">
 							<CustomLink
 								to={`/stocks/${symbol}`}
 								text="Details →"

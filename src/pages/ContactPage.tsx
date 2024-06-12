@@ -13,6 +13,20 @@ function ContactPage() {
 					name="description"
 					content="Contact the developer of the General Stock Predictions platform."
 				/>
+				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+				{/* Open Graph meta tags for social media */}
+				<meta property="og:title" content="Contact | GSP" />
+				<meta
+					property="og:description"
+					content="Contact the developer of the General Stock Predictions platform."
+				/>
+				<meta property="og:image" content="/homepage-thumbnail.png" />
+				<meta
+					property="og:url"
+					content="http://gsp.trafialek.com/contact"
+				/>
+				<meta property="og:type" content="website" />
 			</Helmet>
 			<section className="flex flex-col flex-grow items-center justify-center">
 				<h1 className="relative text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">

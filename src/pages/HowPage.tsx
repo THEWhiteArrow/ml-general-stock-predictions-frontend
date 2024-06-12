@@ -24,6 +24,20 @@ function HowPage() {
 					name="description"
 					content="A short article explaining how GSP project works"
 				/>
+				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+				{/* Open Graph meta tags for social media */}
+				<meta property="og:title" content="How does it work? | GSP" />
+				<meta
+					property="og:description"
+					content="A short article explaining how GSP project works"
+				/>
+				<meta property="og:image" content="/homepage-thumbnail.png" />
+				<meta
+					property="og:url"
+					content="http://gsp.trafialek.com/how"
+				/>
+				<meta property="og:type" content="website" />
 			</Helmet>
 			<section className="flex flex-grow text-sm md:text-base">
 				<div className="container mx-auto py-6 flex flex-col h-full">

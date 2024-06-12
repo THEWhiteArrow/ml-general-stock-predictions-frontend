@@ -92,6 +92,20 @@ function StocksPage() {
 					name="description"
 					content="Overview of all stocks available in the General Stock Predictions platform."
 				/>
+				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+				{/* Open Graph meta tags for social media */}
+				<meta property="og:title" content="Stocks | GSP" />
+				<meta
+					property="og:description"
+					content="Overview of all stocks available in the General Stock Predictions platform."
+				/>
+				<meta property="og:image" content="/homepage-thumbnail.png" />
+				<meta
+					property="og:url"
+					content="http://gsp.trafialek.com/stocks"
+				/>
+				<meta property="og:type" content="website" />
 			</Helmet>
 			<div className="container mx-auto py-6 flex flex-col h-full text-sm md:test-base">
 				<h1 className="neumo-out text-3xl mb-16 p-5">Stocks</h1>
