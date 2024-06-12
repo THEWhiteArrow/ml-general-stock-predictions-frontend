@@ -23,7 +23,20 @@ function GenerationInfo(props: GenerationInfoProps) {
 					aria-label="Information"
 				>
 					Nice to see you! Please wait until 15:00 UTC for the newest
-					predictions to be generated.
+					predictions to be generated or pick past date.
+				</p>
+			);
+		} else if (
+			predictionDate.getDay() === 6 ||
+			predictionDate.getDay() === 0
+		) {
+			return (
+				<p
+					className="neumo-text-info text-center mb-6"
+					aria-label="Information message - weekend"
+				>
+					No predictions are generated on weekends. Please pick a
+					weekday or contact the developers.
 				</p>
 			);
 		} else {

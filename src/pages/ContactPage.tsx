@@ -1,6 +1,7 @@
 import { ReactComponent as LinkedinSvg } from "../assets/svgs/linkedin.svg";
 import { ReactComponent as GithubSvg } from "../assets/svgs/github.svg";
 import { ReactComponent as GoogleSvg } from "../assets/svgs/google.svg";
+import { ReactComponent as ContactSvg } from "../assets/svgs/undraw_message_sent_re_q2kl.svg";
 import { Helmet } from "react-helmet";
 
 function ContactPage() {
@@ -14,8 +15,9 @@ function ContactPage() {
 				/>
 			</Helmet>
 			<section className="flex flex-col flex-grow items-center justify-center">
-				<h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+				<h1 className="relative text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
 					Contact me
+					<ContactSvg className="absolute hidden md:block w-20 h-20 -right-32 -top-8 opacity-60" />
 				</h1>
 				<p className="mt-6 text-center">
 					Hey, my name is Damian and I single-handedly developed this

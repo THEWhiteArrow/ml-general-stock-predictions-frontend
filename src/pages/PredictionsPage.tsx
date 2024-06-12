@@ -105,6 +105,7 @@ function PredictionsOverview() {
 				setGeneration(response.generation);
 			} catch (e: any) {
 				console.log(e.message);
+				setGeneration(null);
 			} finally {
 				setLoading(false);
 			}
@@ -148,17 +149,12 @@ function PredictionsOverview() {
 						setSearchQuery(e.target.value);
 					}}
 				/>
-				<div>
-					<p className="text-center mt-4">
-						Please choose a date for which to display the generation
-						of predictions.
-					</p>
-					<DatePicker
-						className="mb-8 mt-2"
-						date={predictionDate}
-						setDate={setPredictionDate}
-					/>
-				</div>
+
+				<DatePicker
+					className="my-10 neumo-out py-4"
+					date={predictionDate}
+					setDate={setPredictionDate}
+				/>
 
 				{!loading && (
 					<GenerationInfo
