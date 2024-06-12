@@ -100,32 +100,24 @@ code {
 
   
 .neumo-out{
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur();
   box-shadow: 
   var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
   calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: var(--neumo-rounded);
 }
 .neumo-out-sm{
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur();
   box-shadow: 
   var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
   calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
   border-radius: var(--neumo-rounded);
 }
 .neumo-in{
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur();
   box-shadow: 
   inset var(--shadow-horizontal) var(--shadow-vertical) var(--shadow-blur) var(--shadow-spread) var(--shadow), 
   inset calc(-1*var(--shadow-horizontal)) calc(-1*var(--shadow-vertical)) var(--shadow-blur) var(--shadow-spread) var(--light);
   border-radius: var(--neumo-rounded);
 }
 .neumo-in-sm{
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur();
   box-shadow: 
   inset var(--shadow-horizontal-sm) var(--shadow-vertical-sm) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--shadow), 
   inset calc(-1*var(--shadow-horizontal-sm)) calc(-1*var(--shadow-vertical-sm)) var(--shadow-blur-sm) var(--shadow-spread-sm) var(--light);
