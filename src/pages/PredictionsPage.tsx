@@ -19,6 +19,7 @@ import LoaderHandler from "../components/LoaderHandler";
 import DatePicker from "../components/DatePicker";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
+import { ReactComponent as GoogleSvg } from "../assets/svgs/google.svg";
 import GenerationInfo from "../components/GenerationInfo";
 
 type PreProcessedDataType = {
@@ -163,6 +164,27 @@ function PredictionsOverview() {
 						setSearchQuery(e.target.value);
 					}}
 				/>
+
+				<div className="my-4 neumo-text-error text-center flex flex-col items-center">
+					<p>
+						IMPORTANT: The application is currenly out of service.
+						The last prediction was generated on 05.09.2024.
+					</p>
+					I have prioritized other projects and I am currenly not able
+					to maintain the application. I am sorry for the
+					inconvenience.
+					<p>
+						If you have any questions or ideas, please contact me at
+					</p>
+					<a
+						aria-label="Email"
+						href="mailto:damian.trafialek@gmail.com"
+						// target="_blank"
+						className="neumo p-4 mt-4 neumo-out neumo-interactive"
+					>
+						<GoogleSvg className="w-8 h-8 mx-2" />
+					</a>
+				</div>
 
 				<DatePicker
 					className="my-10 neumo-out py-4"
